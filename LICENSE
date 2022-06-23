@@ -1,2 +1,0 @@
-RL control strategies for EVs fleet VPPs
-Thesis based on the development of a RL agent that manages a VPP through EVs charging stations. Main optimization objectives of the VPP are: Valley filling and peak shaving. Main action performed to reach objectives are: storage of Renewable energy resources and power push in the grid at high demand times. Assumptions of high number of vehicles connected for minimum time of 3-4 hours in the grid.
