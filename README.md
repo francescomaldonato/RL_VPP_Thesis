@@ -16,7 +16,7 @@ An RL agent will be in charge on managing EVs power resources to guarantee peak 
 ## Initialization
 
 - Open the VPP_environment notebook on Google Colaboratory at:
-https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/VPP_environment.ipynb
+https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/VPP_simulator.ipynb
 - (Recommended for training the agent) Change the runtime type > Hardware accelerator to GPU
 - Run the whole notebook
 
