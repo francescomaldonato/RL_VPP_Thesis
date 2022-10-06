@@ -1,11 +1,7 @@
 ### RL control strategies for EVs fleet VPPs
 # [Reinforcement Learning control strategies for Electric Vehicles fleet Virtual Power Plants]
-Thesis based on the development of a RL agent that manages a VPP through EVs charging stations in an household environment. Main optimization objectives of the VPP are: Valley filling, peak shaving and zero resulting load over time. Main action performed to reach objectives are: storage of Renewable energy resources and power push in the grid at high demand times. 
-The development of the Virtual Power Plant environment is based on the ELVIS (Electric Vehicles Infrastructure Simulator) open library from DAI-Labor:
-https://github.com/dailab/elvis
-![alt text](https://github.com/francescomaldonato/RL_VPP_Thesis/blob/main/data/images/Elvis_logo.png?raw=true)
-The thesis code is currently available at:
-https://github.com/francescomaldonato/RL_VPP_Thesis
+Thesis based on the development of a RL agent that manages a VPP through EVs charging stations in an household environment. Main optimization objectives of the VPP are: Valley filling, peak shaving and zero resulting load over time. Main action performed to reach objectives are: storage of Renewable energy resources and power push in the grid at high demand times. The development of the Virtual Power Plant environment is based on the ELVIS (Electric Vehicles Infrastructure Simulator) open library from DAI-Labor: https://github.com/dailab/elvis
+The thesis code is currently available at: (https://github.com/francescomaldonato/RL_VPP_Thesis)
 
 ## Outline:
 This research has the intent to investigate on a sustainable way of life of a general household energy production and storage.
@@ -20,12 +16,19 @@ A simulation configuration parameters set is shown below. [Assumptions of 20 EVs
 
 ![alt text](https://github.com/francescomaldonato/RL_VPP_Thesis/blob/main/data/images/Elvis_config.png?raw=true)
 
+## Initialization (quick VPP simulation)
+- Open the VPP_environment notebook on Google Colaboratory at:
+    https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/VPP_simulator.ipynb
+- Run the whole notebook
+
+It will automatically clone in the remote machine the repository: https://github.com/francescomaldonato/RL_VPP_Thesis.git
+
 ## Repository structure
 
 RL_VPP_Thesis:
-    - `VPP_environment.py` (Python script containing the environment definition and functions)
-    - `VPP_simulator.ipynb` (Notebook to test the VPP performances and features with the best trained model, currently RecurrentPPO)
-    - `RL_control-strategies_for_EVs_fleet_VPP.pdf` (Developed thesis paper of the research)
+- `VPP_environment.py` (Python script containing the environment definition and functions)
+- `VPP_simulator.ipynb` (Notebook to test the VPP performances and features with the best trained model, currently RecurrentPPO)
+- `RL_control-strategies_for_EVs_fleet_VPP.pdf` (Developed thesis paper of the research)
 
     Simulator_notebooks: (folder with other notebooks to test the VPP with different RL algorithm)
         - `A2C_VPP_simulator.ipynb`
@@ -69,12 +72,6 @@ RL_VPP_Thesis:
     wandb: (folder with Weights&Biases training data stored)
         - tensorboard_log: (folder where training tensorboard log files are stored)
 
-## Initialization (quick VPP simulation)
-- Open the VPP_environment notebook on Google Colaboratory at:
-    https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/VPP_simulator.ipynb
-- Run the whole notebook
-
-It will automatically clone in the remote machine the repository: https://github.com/francescomaldonato/RL_VPP_Thesis.git
 
 ## RL algorithm performance testing
 - Open a VPP simulator notebook with a trained model loaded in the Simulator_notebooks folder on Google Colaboratory
