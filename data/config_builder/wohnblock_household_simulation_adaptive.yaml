@@ -2,16 +2,17 @@ start_date: '2022-01-01T00:00:00'
 end_date: '2023-01-01T00:00:00'
 resolution: '0:15:00'
 
-disconnect_by_time: true
-mean_park: 23.9
 num_charging_events: 20
+mean_park: 23.99
+std_deviation_park: 1
+mean_soc: 0.5
+std_deviation_soc: 0.1
+
+disconnect_by_time: true
 queue_length: 0
 resolution_preload: '0:15:00'
 repeat_preload: True
 scheduling_policy: Uncontrolled
-mean_soc: 0.5
-std_deviation_soc: 0.1
-std_deviation_park: 1
 
 num_households_load: 4
 av_max_households_load: 10
