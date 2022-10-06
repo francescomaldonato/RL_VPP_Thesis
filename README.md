@@ -97,10 +97,10 @@ In the `data/config_builder/` folder you can find the Elvis YAML config files.
     - std_deviation_soc     (standard deviation State Of Charge of EVs at arrival)
 - Open the VPP simulation notebook you wish to test (as explained in previous section).
 - In the "Load ELVIS YAML config file" section, load the config file you wish. Choose among the available config files by modifying the `case` string to:
-    - `wohnblock_household_simulation_adaptive.yaml` (loaded by default, 20 EVs arrivals per week with 50% average battery)
-    - `wohnblock_household_simulation_adaptive_18.yaml` (18 EVs arrivals per week with 40% average battery) 
-    - `wohnblock_household_simulation_adaptive_22.yaml` (22 EVs arrivals per week with 55% average battery) 
-    - `wohnblock_household_simulation_adaptive_30.yaml` (30 EVs arrivals per week with 65% average battery) 
+    - `wohnblock_household_simulation_adaptive.yaml` (loaded by default, 20 EVs arrivals per week with 50% av.battery)
+    - `wohnblock_household_simulation_adaptive_18.yaml` (18 EVs arrivals per week with 40% av.battery) 
+    - `wohnblock_household_simulation_adaptive_22.yaml` (22 EVs arrivals per week with 55% av.battery) 
+    - `wohnblock_household_simulation_adaptive_30.yaml` (30 EVs arrivals per week with 65% av.battery) 
 - Then re-run the whole notebook to test the VPP experiment performances.
 
 ### Input datasets visualization (training, testing, validating)
