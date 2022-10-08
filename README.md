@@ -82,8 +82,11 @@ RL_VPP_Thesis:
     - MaskablePPO (Maskable Proximal Policy Optimization)
     - TRPO (Trust Region Policy Optimization)
     - RecurrentPPO (Recurrent Proximal Policy Optimization)
-- Load it on Google Colaboratory by substituting the URL address first part (https://github.com/) with the Colab github loader address (https://colab.research.google.com/github/). E.g:
-    https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Simulator_notebooks/TRPO_VPP_simulator.ipynb
+- Load it on Google Colaboratory by substituting the URL address first part (https://github.com/) with the Colab github loader address (https://colab.research.google.com/github/). Direct access notebooks links:
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Simulator_notebooks/A2C_VPP_simulator.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Simulator_notebooks/MaskablePPO_VPP_simulator.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Simulator_notebooks/TRPO_VPP_simulator.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Simulator_notebooks/RecurrentPPO_VPP_simulator.ipynb
 - Check the VPP results and interactive plots already loaded in the notebook.
 - If you wish to test again the VPP performances, re-run the whole notebook.
 
@@ -105,8 +108,10 @@ In the `data/config_builder/` folder you can find the Elvis YAML config files.
 
 ### Input datasets visualization (training, testing, validating)
 - Open a dataset-merger notebook in the `data` folder, chosing among training, testing, validating.
-- Load it on Google Colaboratory by substituting the URL address first part (https://github.com/) with the Colab github loader address (https://colab.research.google.com/github/). E.g:
-    https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/testing_dataset_merger.ipynb
+- Load it on Google Colaboratory by substituting the URL address first part (https://github.com/) with the Colab github loader address (https://colab.research.google.com/github/). Direct access notebooks links:
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/training_dataset_merger.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/testing_dataset_merger.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/validating_dataset_merger.ipynb
 - Check the dataset interactive plots already loaded in the notebook.
 - If you wish to load again the dataset, re-run the whole notebook.
 
@@ -116,10 +121,23 @@ In the `data/config_builder/` folder you can find the Elvis YAML config files.
     - WT-Wind-energy-production                 (`create_wt_load_profile.ipynb`)
     - PV-Solar-energy-production                (`create_pv_load_profile.ipynb`)
     - Multiple-households-power-consumption     (`create_MultipleHousehold_load.ipynb`)
-    - Single-households-power-consumption       (`create_household_load.ipynb`)
+    - Single-households-power-consumption       (`create_household_load.ipynb`, to check sigle households, not used in the dataset)
     - Electricity-market-prices                 (`create_electricity_prices.ipynb`)
-- Load it on Google Colaboratoryby substituting the URL address first part (https://github.com/) with the Colab github loader address (https://colab.research.google.com/github/). E.g:
-    https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_training/create_MultipleHousehold_load.ipynb
+- Load it on Google Colaboratoryby substituting the URL address first part (https://github.com/) with the Colab github loader address (https://colab.research.google.com/github/).          Training dataset direct access notebooks link:
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_training/create_wt_load_profile.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_training/create_pv_load_profile.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_training/create_MultipleHousehold_load.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_training/create_electricity_prices.ipynb
+ Testing dataset direct access notebooks link:
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_testing/create_wt_load_profile.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_testing/create_pv_load_profile.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_testing/create_MultipleHousehold_load.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_testing/create_electricity_prices.ipynb
+ Validating dataset direct access notebooks link:
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_validating/create_wt_load_profile.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_validating/create_pv_load_profile.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_validating/create_MultipleHousehold_load.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_validating/create_electricity_prices.ipynb
 - Check the profile interactive plots already loaded in the notebook.
 - If you wish to load again the profile data, re-run the whole notebook.
 
@@ -134,8 +152,11 @@ You can train your own model with your Hyperparameters set.
     - MaskablePPO (Maskable Proximal Policy Optimization)
     - TRPO (Trust Region Policy Optimization)
     - RecurrentPPO (Recurrent Proximal Policy Optimization)
-- Load it on Google Colaboratory by substituting the URL address first part (https://github.com/) with the Colab github loader address (https://colab.research.google.com/github/). E.g:
-    https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Agent_trainer_notebooks/MaskablePPO_VPP_agent_trainer.ipynb
+- Load it on Google Colaboratory by substituting the URL address first part (https://github.com/) with the Colab github loader address (https://colab.research.google.com/github/). Direct access notebooks links:
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Agent_trainer_notebooks/A2C_VPP_agent_trainer.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Agent_trainer_notebooks/MaskablePPO_VPP_agent_trainer.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Agent_trainer_notebooks/TRPO_VPP_agent_trainer.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Agent_trainer_notebooks/RecurrentPPO_VPP_agent_trainer.ipynb
 - [Recommended] Switch the Runtime type to "GPU Accellerator"
 - [Optional] Select the Hyperparameters set in the run-config section. The Algorithms class and parameters documentation is available at:
     - https://stable-baselines3.readthedocs.io/en/master/index.html
@@ -149,8 +170,11 @@ You can launch an Hyperparameters sweep session for a selected algorithm.
     - MaskablePPO (Maskable Proximal Policy Optimization)
     - TRPO (Trust Region Policy Optimization)
     - RecurrentPPO (Recurrent Proximal Policy Optimization)
-- Load it on Google Colaboratory by substituting the URL address first part (https://github.com/) with the Colab github loader address (https://colab.research.google.com/github/). E.g:
-    https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Hyperparameters_sweep_notebooks/A2C_VPP_Hyperp_Sweep.ipynb
+- Load it on Google Colaboratory by substituting the URL address first part (https://github.com/) with the Colab github loader address (https://colab.research.google.com/github/). Direct access notebooks links:
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Hyperparameters_sweep_notebooks/A2C_VPP_Hyperp_Sweep.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Hyperparameters_sweep_notebooks/MaskablePPO_VPP_Hyperp_Sweep.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Hyperparameters_sweep_notebooks/TRPO_VPP_Hyperp_Sweep.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Hyperparameters_sweep_notebooks/RecurrentPPO_VPP_Hyperp_Sweep.ipynb
 - [Recommended] Switch the Runtime type to "GPU Accellerator"
 - [Optional] Select the Hyperparameters sweep set in the sweep-config section. Weights and Biases Sweep tutorial: https://docs.wandb.ai/guides/sweeps
 - Run the whole notebook to start tuning the model
