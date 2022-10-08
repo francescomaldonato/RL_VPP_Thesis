@@ -78,7 +78,7 @@ RL_VPP_Thesis:
 
 ## Different RL algorithms performance testing
 - Open on Github a VPP-simulator notebook with a trained model loaded in the `Simulator_notebooks` folder. Choose among the algorithms:
-    - A2C (Asynchronous Actor Critic)
+    - A2C (Advantage Actor-Critic)
     - MaskablePPO (Maskable Proximal Policy Optimization)
     - TRPO (Trust Region Policy Optimization)
     - RecurrentPPO (Recurrent Proximal Policy Optimization)
@@ -130,7 +130,7 @@ The Colab notebook will automatically sign-in and save experiments results in yo
 ## Model training
 You can train your own model with your Hyperparameters set.
 - In the `Agent_trainer_notebooks` folder, open the (X)_VPP_agent_trainer notebook for the (X) model Algorithm you want to train. Choose among the algorithms:
-    - A2C (Asynchronous Actor Critic)
+    - A2C (Advantage Actor-Critic)
     - MaskablePPO (Maskable Proximal Policy Optimization)
     - TRPO (Trust Region Policy Optimization)
     - RecurrentPPO (Recurrent Proximal Policy Optimization)
@@ -145,7 +145,7 @@ You can train your own model with your Hyperparameters set.
 ## Algorithm Hyperparameter tuning
 You can launch an Hyperparameters sweep session for a selected algorithm.
 - In the `Agent_trainer_notebooks` folder, open the (X)_VPP_agent_trainer notebook for the (X) Algorithm you want to tune. Choose among the algorithms:
-    - A2C (Asynchronous Actor Critic)
+    - A2C (Advantage Actor-Critic)
     - MaskablePPO (Maskable Proximal Policy Optimization)
     - TRPO (Trust Region Policy Optimization)
     - RecurrentPPO (Recurrent Proximal Policy Optimization)
@@ -155,7 +155,7 @@ You can launch an Hyperparameters sweep session for a selected algorithm.
 - [Optional] Select the Hyperparameters sweep set in the sweep-config section. Weights and Biases Sweep tutorial: https://docs.wandb.ai/guides/sweeps
 - Run the whole notebook to start tuning the model
 - Check Hyperparameter Sweep results at the experiment Sweep page.
-![alt text](https://github.com/francescomaldonato/RL_VPP_Thesis/blob/main/data/images/Hyperp_sweep_results.png?raw=true)
+![alt text](https://github.com/francescomaldonato/RL_VPP_Thesis/blob/main/data/images/3D_bubble_names_colors.png?raw=true)
 
 ## Authors
 Francesco Maldonato
