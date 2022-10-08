@@ -32,47 +32,48 @@ RL_VPP_Thesis:
 - `VPP_simulator.ipynb` (Notebook to test the VPP performances and features with the best trained model, currently RecurrentPPO)
 - `RL_control-strategies_for_EVs_fleet_VPP.pdf` (Developed thesis paper of the research)
 
-    Simulator_notebooks: (folder with other notebooks to test the VPP with different RL algorithm)
-        - `A2C_VPP_simulator.ipynb`
-        - `MaskablePPO_VPP_simulator.ipynb`
-        - `TRPO_VPP_simulator.ipynb`
-        - `RecurrentPPO_VPP_simulator.ipynb`
+- Simulator_notebooks: (folder with other notebooks to test the VPP with different RL algorithm)
+    - `A2C_VPP_simulator.ipynb`
+    - `MaskablePPO_VPP_simulator.ipynb`
+    - `TRPO_VPP_simulator.ipynb`
+    - `RecurrentPPO_VPP_simulator.ipynb`
     
-    Agent_trainer_notebooks: (folder with the notebooks to train the VPP RL agent with the indicated set of hyperparameters for each RL algorithm)
-        - `A2C_VPP_agent_trainer.ipynb`
-        - `MaskablePPO_VPP_agent_trainer.ipynb`
-        - `TRPO_VPP_agent_trainer.ipynb`
-        - `RecurrentPPO_VPP_agent_trainer.ipynb`
+- Agent_trainer_notebooks: (folder with the notebooks to train the VPP RL agent with the indicated set of hyperparameters for each RL algorithm)
+    - `A2C_VPP_agent_trainer.ipynb`
+    - `MaskablePPO_VPP_agent_trainer.ipynb`
+    - `TRPO_VPP_agent_trainer.ipynb`
+    - `RecurrentPPO_VPP_agent_trainer.ipynb`
     
-    Hyperparameters_sweep_notebooks: (folder with the notebooks to tune Hyperparameters of the VPP RL agents for each RL algorithm)
-        - `A2C_VPP_Hyperp_Sweep.ipynb`
-        - `MaskablePPO_VPP_Hyperp_Sweep.ipynb`
-        - `TRPO_VPP_Hyperp_Sweep.ipynb`
-        - `RecurrentPPO_VPP_Hyperp_Sweep.ipynb`
+- Hyperparameters_sweep_notebooks: (folder with the notebooks to tune Hyperparameters of the VPP RL agents for each RL algorithm)
+    - `A2C_VPP_Hyperp_Sweep.ipynb`
+    - `MaskablePPO_VPP_Hyperp_Sweep.ipynb`
+    - `TRPO_VPP_Hyperp_Sweep.ipynb`
+    - `RecurrentPPO_VPP_Hyperp_Sweep.ipynb`
     
-    trained_models: (folder with the trained models for each RL algorithm ready to be loaded)
-        - A2C_models (folder)
-        - MaskablePPO_models (folder)
-        - TRPO_models (folder)
-        - RecurrentPPO_models (folder)
+- trained_models: (folder with the trained models for each RL algorithm ready to be loaded)
+    - A2C_models (folder)
+    - MaskablePPO_models (folder)
+    - TRPO_models (folder)
+    - RecurrentPPO_models (folder)
     
-    data:
-        - `training_dataset_merger.ipynb` (notebook that visualizes and creates the training dataset table)
-        - `testing_dataset_merger.ipynb` (notebook that visualizes and creates the testing dataset table)
-        - `validating_dataset_merger.ipynb` (notebook that visualizes and creates the validating dataset table)
-
-        config_builder: (folder containing the YAML simulation config files)
-            - `wohnblock_household_simulation_adaptive.yaml`
-            - `wohnblock_household_simulation_adaptive_30.yaml`
-
-        environment_optimized_output: (folder where to store the VPP optimized simulation data results)
-        images: (folder with plots of the best results obtained)
-        
-        data_training: (folder with pre-processing notebooks, 2019 raw-data .csv files, and the created training dataset table)
-        data_testing: (folder with pre-processing notebooks, 2020 raw-data .csv files, and the created testing dataset table)
-        data_validating: (folder with pre-processing notebooks, 2018 raw-data .csv files, and the created validating dataset table)
-    
-    wandb: (folder with Weights&Biases training data stored)
+- data:
+    - `training_dataset_merger.ipynb` (notebook that visualizes and creates the training dataset table)
+    - `testing_dataset_merger.ipynb` (notebook that visualizes and creates the testing dataset table)
+    - `validating_dataset_merger.ipynb` (notebook that visualizes and creates the validating dataset table)
+    - data_training: (folder with pre-processing notebooks, 2019 raw-data .csv files, and the created training dataset table)
+    - data_testing: (folder with pre-processing notebooks, 2020 raw-data .csv files, and the created testing dataset table)
+    - data_validating: (folder with pre-processing notebooks, 2018 raw-data .csv files, and the created validating dataset table)
+    - config_builder: (folder containing the YAML simulation config files)
+        - `wohnblock_household_simulation_adaptive.yaml`
+        - `wohnblock_household_simulation_adaptive_30.yaml`
+    - environment_optimized_output: (folder where to store the VPP optimized simulation data results)
+        - `VPP_table.csv` (last PP optimized simulation data results)
+    - images: (folder with plots of the best results obtained)
+    - algorithms_results: (folder with algorithm evaluation notebook and plots)
+        - `Algorithms_results_plot.ipynb` (notebook that plots Algorithms performances)
+        - algorithms_results_table: (folder containing algorithms sweep results tables downloaded from wandb.ai)
+        - algorithms_graphs: (folder containing algorithms results graphs)
+    - wandb: (folder with Weights&Biases training data stored)
         - tensorboard_log: (folder where training tensorboard log files are stored)
 
 
@@ -182,7 +183,9 @@ You can launch an Hyperparameters sweep session for a selected algorithm.
 
 ## Algorithm results graphs
 Plot the Hyperparameters sweep results and the algorithm performances obtained and stored in the `data/algorithms_results/algorithms_results_table` in the notebook:
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/algorithms_results/Algorithms_results_plots.ipynb
+
+https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/algorithms_results/Algorithms_results_plots.ipynb
+
 The tables are extracted from the wandb.ai Sweep page for each Algorithm. Check out the 2D and 3D graphs already loaded.
 
 ![alt text](https://github.com/francescomaldonato/RL_VPP_Thesis/blob/main/data/images/3D_bubble_names_colors.png?raw=true)
