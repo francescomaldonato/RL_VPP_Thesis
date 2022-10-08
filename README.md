@@ -67,7 +67,7 @@ RL_VPP_Thesis:
         - `wohnblock_household_simulation_adaptive.yaml`
         - `wohnblock_household_simulation_adaptive_30.yaml`
     - environment_optimized_output: (folder where to store the VPP optimized simulation data results)
-        - `VPP_table.csv` (last PP optimized simulation data results)
+        - `VPP_table.csv` (last VPP optimized simulation data results)
     - images: (folder with plots of the best results obtained)
     - algorithms_results: (folder with algorithm evaluation notebook and plots)
         - `Algorithms_results_plot.ipynb` (notebook that plots Algorithms performances)
@@ -124,21 +124,22 @@ In the `data/config_builder/` folder you can find the Elvis YAML config files.
     - Multiple-households-power-consumption     (`create_MultipleHousehold_load.ipynb`)
     - Single-households-power-consumption       (`create_household_load.ipynb`, to check sigle households, not used in the dataset)
     - Electricity-market-prices                 (`create_electricity_prices.ipynb`)
-- Load it on Google Colaboratoryby substituting the URL address first part (https://github.com/) with the Colab github loader address (https://colab.research.google.com/github/).          Training dataset direct access notebooks link:
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_training/create_wt_load_profile.ipynb
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_training/create_pv_load_profile.ipynb
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_training/create_MultipleHousehold_load.ipynb
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_training/create_electricity_prices.ipynb
- Testing dataset direct access notebooks link:
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_testing/create_wt_load_profile.ipynb
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_testing/create_pv_load_profile.ipynb
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_testing/create_MultipleHousehold_load.ipynb
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_testing/create_electricity_prices.ipynb
- Validating dataset direct access notebooks link:
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_validating/create_wt_load_profile.ipynb
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_validating/create_pv_load_profile.ipynb
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_validating/create_MultipleHousehold_load.ipynb
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_validating/create_electricity_prices.ipynb
+- Load it on Google Colaboratoryby substituting the URL address first part (https://github.com/) with the Colab github loader address (https://colab.research.google.com/github/), or opening a direct access link provided below:
+    - Training dataset direct access notebooks link:
+        - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_training/create_wt_load_profile.ipynb
+        - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_training/create_pv_load_profile.ipynb
+        - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_training/create_MultipleHousehold_load.ipynb
+        - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_training/create_electricity_prices.ipynb
+    - Testing dataset direct access notebooks link:
+        - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_testing/create_wt_load_profile.ipynb
+        - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_testing/create_pv_load_profile.ipynb
+        - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_testing/create_MultipleHousehold_load.ipynb
+        - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_testing/create_electricity_prices.ipynb
+    - Validating dataset direct access notebooks link:
+        - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_validating/create_wt_load_profile.ipynb
+        - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_validating/create_pv_load_profile.ipynb
+        - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_validating/create_MultipleHousehold_load.ipynb
+        - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/data_validating/create_electricity_prices.ipynb
 - Check the profile interactive plots already loaded in the notebook.
 - If you wish to load again the profile data, re-run the whole notebook.
 
@@ -189,6 +190,9 @@ https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/m
 The tables are extracted from the wandb.ai Sweep page for each Algorithm. Check out the 2D and 3D graphs already loaded.
 
 ![alt text](https://github.com/francescomaldonato/RL_VPP_Thesis/blob/main/data/images/3D_bubble_names_colors.png?raw=true)
+
+## Enjoy the material!
+Have fun training, tuning and testing the RL algorithms with interactive graphs while understanding how a Virtual Power Plant works.
 
 ## Authors
 Francesco Maldonato
