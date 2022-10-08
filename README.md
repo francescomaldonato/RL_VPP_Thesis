@@ -179,6 +179,12 @@ You can launch an Hyperparameters sweep session for a selected algorithm.
 - [Optional] Select the Hyperparameters sweep set in the sweep-config section. Weights and Biases Sweep tutorial: https://docs.wandb.ai/guides/sweeps
 - Run the whole notebook to start tuning the model
 - Check Hyperparameter Sweep results at the experiment Sweep page.
+
+## Algorithm results graphs
+Plot the Hyperparameters sweep results and the algorithm performances obtained and stored in the `data/algorithms_results/algorithms_results_table` in the notebook:
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/algorithms_results/Algorithms_results_plots.ipynb
+The tables are extracted from the wandb.ai Sweep page for each Algorithm. Check out the 2D and 3D graphs already loaded.
+
 ![alt text](https://github.com/francescomaldonato/RL_VPP_Thesis/blob/main/data/images/3D_bubble_names_colors.png?raw=true)
 
 ## Authors
