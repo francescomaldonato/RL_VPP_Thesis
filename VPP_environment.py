@@ -184,7 +184,7 @@ class VPPEnv(Env):
         self.tot_simulation_len = len(self.elvis_time_serie)
         self.vpp_length = self.tot_simulation_len
         #empty list init
-        self.energy_resources, self.avail_EVs_id, self.ev_power, self.overcost, self.total_cost, self.total_load, self.reward_hist = ([],[],[],[],[],[],[])
+        self.energy_resources, self.avail_EVs_id, self.ev_power, self.charging_ev_power, self.discharging_ev_power, self.overcost, self.total_cost, self.total_load, self.reward_hist = ([],[],[],[],[],[],[],[],[])
         self.max_total_load = self.EV_load_max + self.houseRWload_max
         self.max_cost = self.max_total_load * self.max_energy_price /4
         #Setting reward functions
@@ -409,7 +409,7 @@ class VPPEnv(Env):
         self.invalid_actions_t = [action not in invalid_actions for action in self.actions_set]
         return self.invalid_actions_t
     
-    def apply_action_on_energy_source(self, Energy_sources_t_1, action, total_ev_power_t, ch_station_ideal_pwr):
+    def apply_action_on_energy_source(self, step, Energy_sources_t_1, action, total_ev_power_t, ch_station_ideal_pwr):
         """
         Function to apply the agent's chosen action (IDLE,CHARGE,DISCHARGE) to the selected charging station with an EV present.
         the Adaptive power selection calculates the power to get a total zero-load according to the agent's actions chosen.
@@ -429,40 +429,48 @@ class VPPEnv(Env):
         
         battery_max_limit = self.battery_max_limit #99.9 kWh
         battery_min_limit = self.battery_min_limit #0.1 kWh
+
+        ev_power_t = 0
         #APPLY ACTION on previous energy state:
         if action == self.CHARGE:
             Energy_sources_t = Energy_sources_t_1 + (selected_power * 0.25) #5 kW * 15 min = 1.25 kWh STORING ENERGY
-            total_ev_power_t += selected_power
+            ev_power_t += selected_power
             if Energy_sources_t > battery_max_limit: #Reached max capacity (kWh)
-                total_ev_power_t -= (Energy_sources_t - battery_max_limit)/0.25
+                ev_power_t -= (Energy_sources_t - battery_max_limit)/0.25
                 Energy_sources_t = battery_max_limit
         elif action == self.IDLE:
             if Energy_sources_t_1 <= self.IDLE_DISCHARGE_threshold: #if energy below the Idle-Discharge threshold (10%) --> CHARGE
                 Energy_sources_t = Energy_sources_t_1 + (selected_power * 0.25) #5 kW * 15 min = 1.25 kWh STORING ENERGY
-                total_ev_power_t += selected_power
+                ev_power_t += selected_power
                 if Energy_sources_t > battery_max_limit: #Reached max capacity (kWh)
-                    total_ev_power_t -= (Energy_sources_t - battery_max_limit)/0.25
+                    ev_power_t -= (Energy_sources_t - battery_max_limit)/0.25
                     Energy_sources_t = battery_max_limit
             #elif Energy_sources_t_1 > self.IDLE_DISCHARGE_threshold: #if energy above the Idle-Discharge threshold (10%) --> IDLE
             else: Energy_sources_t = Energy_sources_t_1 #keep energy constant
         elif action == self.DISCHARGE:
             if Energy_sources_t_1 <= self.IDLE_DISCHARGE_threshold: #if energy below the Idle-Discharge threshold (10%) --> CHARGE
                 Energy_sources_t = Energy_sources_t_1 + (selected_power * 0.25) #5 kW * 15 min = 1.25 kWh STORING ENERGY
-                total_ev_power_t += selected_power
+                ev_power_t += selected_power
                 if Energy_sources_t > battery_max_limit: #Reached max capacity (kWh)
-                    total_ev_power_t -= (Energy_sources_t - battery_max_limit)/0.25
+                    ev_power_t -= (Energy_sources_t - battery_max_limit)/0.25
                     Energy_sources_t = battery_max_limit
             elif Energy_sources_t_1 > self.DISCHARGE_threshold: #if energy above the Discharge threshold (25%) --> DISCHARGE
                 Energy_sources_t = Energy_sources_t_1 - (selected_power * 0.25) #5 kW * 15 min = 1.25 kWh PUSHING ENERGY
-                total_ev_power_t -= selected_power
+                ev_power_t -= selected_power
                 if Energy_sources_t < battery_min_limit: #Reached min capacity (kWh)
-                    total_ev_power_t += (battery_min_limit - Energy_sources_t)/0.25
+                    ev_power_t += (battery_min_limit - Energy_sources_t)/0.25
                     Energy_sources_t = battery_min_limit
             #elif Energy_sources_t_1 <= self.DISCHARGE_threshold: #if energy below the Discharge threshold (25%) --> IDLE
             else: Energy_sources_t = Energy_sources_t_1 #keep energy constant
-
         else:
             raise ValueError("Received invalid action={} which is not part of the action space".format(action))
+
+        #Charge/discharge power series update
+        if ev_power_t < 0:
+            self.discharging_ev_power[step] += ev_power_t
+        elif ev_power_t > 0:
+            self.charging_ev_power[step] += ev_power_t
+        total_ev_power_t += ev_power_t
 
         return Energy_sources_t, total_ev_power_t
 
@@ -529,7 +537,7 @@ class VPPEnv(Env):
             if time_step >= leaving_time_i:
                 #If vehicle left, set correspondant station ID to zero 
                 n = charging_event.station_n
-                energy_at_leaving_i, total_ev_power_t = self.apply_action_on_energy_source(Energy_sources_t_1[n], action[n], total_ev_power_t, ch_station_ideal_pwr)
+                energy_at_leaving_i, total_ev_power_t = self.apply_action_on_energy_source(step, Energy_sources_t_1[n], action[n], total_ev_power_t, ch_station_ideal_pwr)
                 self.EVs_energy_at_leaving.append(energy_at_leaving_i)
                 new_ev_departures += 1
                 Evs_id_t[n] = int(0)
@@ -545,7 +553,7 @@ class VPPEnv(Env):
         for n in range(self.charging_stations_n):
             #1. Check Evs id present and evaluate new Energy available at station n
             if Evs_id_t[n] > 0:
-                Energy_sources_t[n], total_ev_power_t = self.apply_action_on_energy_source(Energy_sources_t_1[n], action[n], total_ev_power_t, ch_station_ideal_pwr)
+                Energy_sources_t[n], total_ev_power_t = self.apply_action_on_energy_source(step, Energy_sources_t_1[n], action[n], total_ev_power_t, ch_station_ideal_pwr)
 
             elif Evs_id_t[n] == 0:
                 #If no car is connected at station n, available energy = 0
@@ -795,13 +803,15 @@ class VPPEnv(Env):
         self.set_reward_func()
         #Reset VPP session length
         self.vpp_length = self.tot_simulation_len
-        self.energy_resources, self.avail_EVs_id, self.avail_EVs_n, self.ev_power, self.total_cost, self.overcost, self.total_load, self.reward_hist, self.EVs_reward_hist, self.load_reward_hist = ([],[],[],[],[],[],[],[],[],[])
+        self.energy_resources, self.avail_EVs_id, self.avail_EVs_n, self.ev_power, self.charging_ev_power, self.discharging_ev_power , self.total_cost, self.overcost, self.total_load, self.reward_hist, self.EVs_reward_hist, self.load_reward_hist = ([],[],[],[],[],[],[],[],[],[],[],[])
         #build EV series (Avail_en. and IDs)
         for i in range(len(self.elvis_time_serie)):
             self.energy_resources.append(np.zeros(self.charging_stations_n, dtype=np.float32))
             self.avail_EVs_id.append(np.zeros(self.charging_stations_n, dtype=np.int32))
             self.avail_EVs_n.append(0)
             self.ev_power.append(0.0)
+            self.charging_ev_power.append(0.0)
+            self.discharging_ev_power.append(0.0)
             self.total_cost.append(0.0)
             self.overcost.append(0.0)
             self.total_load.append(0.0)
@@ -853,10 +863,6 @@ class VPPEnv(Env):
             EV_battery_capacities.append(EV_type["battery"]["capacity"])
             #brand.append()
             models.append(str(EV_type['brand'])+str(EV_type['model']))
-
-        rated_powers_x = ['solar max', 'wind max', 'EVs load max', 'ch.point max', 'houseRWload max']
-        rated_powers_y = [self.solar_power, self.wind_power, self.EV_load_max, self.charging_point_max_power, self.houseRWload_max]
-        marker_color = ['#04cc98', '#976cf6', '#ee5940', '#ffa15a', '#636efa']
         
         Elvis_data_fig = make_subplots(subplot_titles=('EVs arrival distribution (weekly)','Simulation parameters', 'EV models', 'Rated powers'),
                             rows=2, cols=2,
@@ -887,6 +893,10 @@ class VPPEnv(Env):
         Elvis_data_fig.add_trace(go.Bar(x=[models[0],'arrival Av.soc','Av.soc-std','Av.soc+std'], y=[EV_battery_capacities[0], self.EVs_mean_soc, (self.EVs_mean_soc-self.EVs_std_deviation_soc), (self.EVs_mean_soc+self.EVs_std_deviation_soc)], marker_color = ['#d62728','#bcbd22','#7f7f7f','#7f7f7f']),
                             row=2, col=1)
         
+        rated_powers_x = ['solar max', 'wind max', 'EVs load max', 'ch.point max', 'houseRWload max']
+        rated_powers_y = [self.solar_power, self.wind_power, self.EV_load_max, self.charging_point_max_power, self.houseRWload_max]
+        marker_color = ['#95bf00', '#1ac6ff', '#ee5940', '#7f7f7f', 'orange']
+        
         Elvis_data_fig.add_trace(go.Bar(x=rated_powers_x, y=rated_powers_y, marker_color=marker_color),
                             row=2, col=2)
         
@@ -902,7 +912,8 @@ class VPPEnv(Env):
         Method to plot and visualize the VPP environment input dataset.
         """
         #Optimized VPP simulation graphs
-        VPP_data_fig = make_subplots(subplot_titles=('Households+RW sources Load over time','Renewable power over time','Energy cost over time'),
+        VPP_data_fig = make_subplots(
+                            subplot_titles=('Households and Renewables power over time','Households+RW sources Load over time','Energy cost over time'),
                             rows=3, cols=1, shared_xaxes=True,
                             specs=[[{"secondary_y": False}],
                                     [{"secondary_y": False}],
@@ -910,22 +921,23 @@ class VPPEnv(Env):
 
         # Top graph
         VPP_data_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["household_power"], name="household_power"),
+            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["household_power"], name="household_power",line={'color':'#5c5cd6'}, stackgroup='consumed'),
             row=1, col=1, secondary_y=False)
         VPP_data_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["House&RW_load"], name="House&RW_load"),
+            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_data["solar_power"], name="solar_power",line={'color':'#95bf00'}, stackgroup='produced'),
             row=1, col=1, secondary_y=False)
-        # Center
         VPP_data_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["solar_power"], name="solar_power"),
-            row=2, col=1, secondary_y=False)
+            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_data["wind_power"], name="wind_power",line={'color':'#1ac6ff'}, stackgroup='produced'),
+            row=1, col=1, secondary_y=False)
+        
+        # Center graph
         VPP_data_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["wind_power"], name="wind_power"),
+            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["House&RW_load"], name="House&RW_load",line={'color': 'orange'}, stackgroup='summed'),
             row=2, col=1, secondary_y=False)
 
-        #Down
+        #Down graph
         VPP_data_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["EUR/kWh"], name="EUR/kWh"),
+            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["EUR/kWh"], name="EUR/kWh",line={'color':'rgb(210, 80, 75)'}, stackgroup='cost'),
             row=3, col=1, secondary_y=False)
 
         VPP_data_fig['layout']['yaxis1'].update(title='kW')
@@ -967,17 +979,17 @@ class VPPEnv(Env):
                             specs=[[{"secondary_y": False},{"secondary_y": False},{"secondary_y": False}],
                                     [{"secondary_y": False},{"secondary_y": False},{"secondary_y": False}]])
         
-        rewards_fig.add_trace(go.Scatter(x=battery_x, y=battery_y, name="step_ev_energy"),
+        rewards_fig.add_trace(go.Scatter(x=battery_x, y=battery_y, name="step_ev_energy", stackgroup='1'),
                             row=1, col=1, secondary_y=False)
-        rewards_fig.add_trace(go.Scatter(x=load_x, y=load_y, name="step_load"),
+        rewards_fig.add_trace(go.Scatter(x=load_x, y=load_y, name="step_load", stackgroup='1'),
                             row=1, col=2, secondary_y=False)
-        rewards_fig.add_trace(go.Scatter(x=overconsume_x, y=overconsume_y, name="final_overconsumed_en"),
+        rewards_fig.add_trace(go.Scatter(x=overconsume_x, y=overconsume_y, name="final_overconsumed_en", stackgroup='1'),
                             row=1, col=3, secondary_y=False)
-        rewards_fig.add_trace(go.Scatter(x=battery_x, y=final_battery_y, name="final_Av.ev_energy"),
+        rewards_fig.add_trace(go.Scatter(x=battery_x, y=final_battery_y, name="final_Av.ev_energy", stackgroup='1'),
                             row=2, col=1, secondary_y=False)
-        rewards_fig.add_trace(go.Scatter(x=cost_x, y=cost_y, name="final_overcost"),
+        rewards_fig.add_trace(go.Scatter(x=cost_x, y=cost_y, name="final_overcost", stackgroup='1'),
                             row=2, col=2, secondary_y=False)
-        rewards_fig.add_trace(go.Scatter(x=underconsume_x, y=underconsume_y, name="final_underconsumed_en"),
+        rewards_fig.add_trace(go.Scatter(x=underconsume_x, y=underconsume_y, name="final_underconsumed_en", stackgroup='1'),
                             row=2, col=3, secondary_y=False)
         
         
@@ -1010,7 +1022,7 @@ class VPPEnv(Env):
         VPP_energies_fig = make_subplots(rows=1, cols=1, specs=[[{"secondary_y": False}]])
         for n in range(self.charging_stations_n):
             station = str(n)
-            VPP_energies_fig.add_trace(go.Scatter(x=self.elvis_time_serie, y=self.VPP_energies[n], name="charging station "+station),
+            VPP_energies_fig.add_trace(go.Scatter(x=self.elvis_time_serie, y=self.VPP_energies[n], name=f"charging station {station}", stackgroup=f"{station}"),
                                     row=1, col=1, secondary_y=False)
 
         VPP_energies_fig.add_trace(go.Scatter(x=self.elvis_time_serie, y=[self.av_EV_energy_left-self.std_EV_energy_left]*self.tot_simulation_len, line={'color':'lightgrey'},
@@ -1035,60 +1047,131 @@ class VPPEnv(Env):
         Elvis_fig = make_subplots(rows=1, cols=1, specs=[[{"secondary_y": True}]])
 
         # Top graph
-        Elvis_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=[0]*self.tot_simulation_len,line={'color':'#00174f'}, name="zero_load"),
+        #Elvis_fig.add_trace(
+        #    go.Scatter(x=self.elvis_time_serie, y=[0]*self.tot_simulation_len,line={'color':'#00174f'}, name="zero_load"),
+        #    row=1, col=1, secondary_y=False)
+        
+        """ Elvis_fig.add_trace(
+            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_data["solar_power"], name="solar_power",line={'color':'#95bf00'}),
             row=1, col=1, secondary_y=False)
         Elvis_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.houseRW_load, line={'color':'orange'}, name="houseRW_load"),
+            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_data["wind_power"], name="wind_power",line={'color':'#1ac6ff'}),
+            row=1, col=1, secondary_y=False)
+        Elvis_fig.add_trace(
+            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["household_power"], name="household_power",line={'color':'#5c5cd6'}),
+            row=1, col=1, secondary_y=False) """
+        
+        
+        Elvis_fig.add_trace(
+            go.Scatter(x=self.elvis_time_serie, y=self.houseRW_load, line={'color':'orange'}, name="houseRW_load", stackgroup="power"),
+            row=1, col=1, secondary_y=False)
+        Elvis_fig.add_trace(
+            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["ev_power"], line={'color':'rgb(77, 218, 193)'}, name="ev_power", stackgroup="power"),
             row=1, col=1, secondary_y=False)
         Elvis_fig.add_trace(
             go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["total_load"], line={'color':'#9467bd'}, name="total_load"),
             row=1, col=1, secondary_y=False)
-        Elvis_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["ev_power"], line={'color':'rgb(77, 218, 193)'}, name="ev_power"),
-            row=1, col=1, secondary_y=False)
 
         # Down
         Elvis_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["overcost"], line={'color':'rgb(210, 80, 75)'}, name="overcost"),
+            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["overcost"], line={'color':'rgb(210, 80, 75)'}, name="overcost", stackgroup="cost"),
             row=1, col=1, secondary_y=True)
 
         Elvis_fig['layout']['yaxis1'].update(title='kW')
         Elvis_fig['layout']['yaxis2'].update(title='€')
         Elvis_fig['layout']['legend'].update(title='Time series')
-        Elvis_fig.update_layout(title_text='Elvis Load, EVs power, Overcost', width=1500,height= 550, xaxis_rangeslider_visible=True, xaxis_rangeslider_thickness=0.05, xaxis_range=["2022-06-01 00:00:00", "2022-07-01 00:00:00"])
+        Elvis_fig.update_layout(title_text='Elvis Load, EVs power, Overcost', width=1500,height= 600, xaxis_rangeslider_visible=True, xaxis_rangeslider_thickness=0.05, xaxis_range=["2022-06-01 00:00:00", "2022-07-01 00:00:00"])
         #Elvis_fig.show()
         return Elvis_fig
 
     def plot_VPP_results(self):
         """
-        Method to plot and visualize the VPP simulation results (load, EV power and overcost) with charging actions controlled by the RL agent.
+        Method to plot and visualize the VPP simulation results (Input dataset superimposed with load, EV power and overcost)
+        with charging actions controlled by the RL agent.
+        """
+        #Optimized VPP simulation graphs
+        VPP_opt_fig = make_subplots(rows=1, cols=1,
+                                    #shared_xaxes=True,
+                                    specs=[[{"secondary_y": True}]])
+
+        #VPP_opt_fig.add_trace(
+        #    go.Scatter(x=self.elvis_time_serie, y=[0]*self.tot_simulation_len,line={'color':'#00174f'}, name="zero_load"),
+        #    row=1, col=1, secondary_y=False)
+        """ VPP_opt_fig.add_trace(
+            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_data["solar_power"], name="solar_power",line={'color':'#95bf00'}),
+            row=1, col=1, secondary_y=False)
+        VPP_opt_fig.add_trace(
+            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_data["wind_power"], name="wind_power",line={'color':'#1ac6ff'}),
+            row=1, col=1, secondary_y=False)
+        VPP_opt_fig.add_trace(
+            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["household_power"], name="household_power",line={'color':'#5c5cd6'}),
+            row=1, col=1, secondary_y=False) """
+            
+
+        VPP_opt_fig.add_trace(
+            go.Scatter(x=self.elvis_time_serie, y=self.houseRW_load, line={'color':'orange'}, name="houseRW_load", stackgroup="power"),
+            row=1, col=1, secondary_y=False)
+        VPP_opt_fig.add_trace(
+            go.Scatter(x=self.elvis_time_serie, y=self.optimized_VPP_data["ev_power"], line={'color':'rgb(77, 218, 193)'}, name="ev_power", stackgroup="power"),
+            row=1, col=1, secondary_y=False)
+
+        VPP_opt_fig.add_trace(
+            go.Scatter(x=self.elvis_time_serie, y=self.optimized_VPP_data["total_load"], line={'color':'#9467bd'}, name="total_load"),
+            row=1, col=1, secondary_y=False)
+        # Down
+        VPP_opt_fig.add_trace(
+            go.Scatter(x=self.elvis_time_serie, y=self.optimized_VPP_data["overcost"],line={'color':'rgb(210, 80, 75)'}, name="overcost", stackgroup="cost"),
+            row=1, col=1, secondary_y=True)
+
+        VPP_opt_fig['layout']['yaxis1'].update(title='kW')
+        #VPP_opt_fig['layout']['yaxis2'].update(title='kW')
+        VPP_opt_fig['layout']['yaxis2'].update(title='€')
+        VPP_opt_fig['layout']['legend'].update(title='Time series')
+        VPP_opt_fig.update_layout(title_text='VPP Load, EVs power, Overcost', width=1500,height= 600, xaxis_rangeslider_visible=True, xaxis_rangeslider_thickness=0.05, xaxis_range=["2022-06-01 00:00:00", "2022-07-01 00:00:00"])
+        #VPP_opt_fig.show()
+        return VPP_opt_fig
+    
+    def plot_VPP_supply_demand(self):
+        """
+        Method to plot and visualize the VPP supply/demand energy over time (Input dataset superimposed with charging/discharging EV power, resulting total load)
+        with charging actions controlled by the RL agent.
         """
         #Optimized VPP simulation graphs
         VPP_opt_fig = make_subplots(rows=1, cols=1, specs=[[{"secondary_y": True}]])
 
+        #VPP_opt_fig.add_trace(
+        #    go.Scatter(x=self.elvis_time_serie, y=[0]*self.tot_simulation_len,line={'color':'#00174f'}, name="zero_load"),
+        #    row=1, col=1, secondary_y=False)
+
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=[0]*self.tot_simulation_len,line={'color':'#00174f'}, name="zero_load"),
+            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_data["solar_power"], name="solar_power",line={'color':'#95bf00'}, stackgroup='produced'),
             row=1, col=1, secondary_y=False)
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.houseRW_load, line={'color':'orange'}, name="houseRW_load"),
+            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_data["wind_power"], name="wind_power",line={'color':'#1ac6ff'}, stackgroup='produced'),
             row=1, col=1, secondary_y=False)
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.optimized_VPP_data["total_load"], line={'color':'#9467bd'}, name="total_load"),
+            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["household_power"], name="household_power",line={'color':'#5c5cd6'}, stackgroup='consumed'),
             row=1, col=1, secondary_y=False)
-        VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.optimized_VPP_data["ev_power"], line={'color':'rgb(77, 218, 193)'}, name="ev_power"),
-            row=1, col=1, secondary_y=False)
+        #VPP_opt_fig.add_trace(
+        #    go.Scatter(x=self.elvis_time_serie, y=self.houseRW_load, line={'color':'orange'}, name="houseRW_load"),
+        #    row=1, col=1, secondary_y=False)
+        #VPP_opt_fig.add_trace(
+        #    go.Scatter(x=self.elvis_time_serie, y=self.optimized_VPP_data["total_load"], line={'color':'#9467bd'}, name="total_load"),
+        #    row=1, col=1, secondary_y=False)
+        
 
         # Down
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.optimized_VPP_data["overcost"],line={'color':'rgb(210, 80, 75)'}, name="overcost"),
-            row=1, col=1, secondary_y=True)
+            go.Scatter(x=self.elvis_time_serie, y=self.discharging_ev_power,line={'color':'#fa1d9c'}, name="ev_discharged_pwr", stackgroup='produced'),
+            row=1, col=1, secondary_y=False)
+        # Down
+        VPP_opt_fig.add_trace(
+            go.Scatter(x=self.elvis_time_serie, y=self.charging_ev_power,line={'color':'#45d3d3'}, name="ev_charged_pwr", stackgroup='consumed'),
+            row=1, col=1, secondary_y=False)
 
         VPP_opt_fig['layout']['yaxis1'].update(title='kW')
-        VPP_opt_fig['layout']['yaxis2'].update(title='€')
         VPP_opt_fig['layout']['legend'].update(title='Time series')
-        VPP_opt_fig.update_layout(title_text='VPP Load, EVs power, Overcost', width=1500,height= 550, xaxis_rangeslider_visible=True, xaxis_rangeslider_thickness=0.05, xaxis_range=["2022-06-01 00:00:00", "2022-07-01 00:00:00"])
+        VPP_opt_fig.update_layout(barmode='stack', title_text='VPP Supply/demand power', width=1500,height= 600, xaxis_rangeslider_visible=True, xaxis_rangeslider_thickness=0.05, xaxis_range=["2022-06-01 00:00:00", "2022-07-01 00:00:00"])
         #VPP_opt_fig.show()
         return VPP_opt_fig
 
@@ -1106,20 +1189,17 @@ class VPPEnv(Env):
         rewards_serie[-2] = 0
         # Top graph
         rewards_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=[0]*self.tot_simulation_len,line={'color':'#00174f'}, name="zero_load"),
+            go.Scatter(x=self.elvis_time_serie, y=self.optimized_VPP_data["total_load"], line={'color':'#9467bd'}, name="total_load", stackgroup='load'),
             row=1, col=1, secondary_y=False)
         rewards_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.optimized_VPP_data["total_load"], line={'color':'#9467bd'}, name="total_load"),
-            row=1, col=1, secondary_y=False)
-        rewards_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.load_reward_hist, line={'color':'rgb(45, 167, 176)'}, name="load_rewards"),
+            go.Scatter(x=self.elvis_time_serie, y=self.load_reward_hist, line={'color':'rgb(45, 167, 176)'}, name="load_rewards", stackgroup='reward'),
             row=1, col=1, secondary_y=True)
         
         rewards_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.avail_EVs_n, line={'color':'rgb(238, 173, 81)'}, name="EVs_available"),
+            go.Scatter(x=self.elvis_time_serie, y=self.avail_EVs_n, line={'color':'rgb(238, 173, 81)'}, name="EVs_available", stackgroup='evs'),
             row=2, col=1, secondary_y=False)
         rewards_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=rewards_serie, line={'color':'rgb(115, 212, 127)'}, name="total_reward"),
+            go.Scatter(x=self.elvis_time_serie, y=rewards_serie, line={'color':'rgb(115, 212, 127)'}, name="total_reward", stackgroup='tot_reward'),
             row=2, col=1, secondary_y=True)
         rewards_fig.add_trace(
             go.Scatter(x=self.elvis_time_serie, y=self.EVs_reward_hist, line={'color':'rgb(210, 80, 75)'}, name="EVs_rewards"),

@@ -4,8 +4,8 @@ resolution: '0:15:00'
 
 num_charging_events: 30
 mean_park: 23.99
-std_deviation_park: 2
-mean_soc: 0.65
+std_deviation_park: 1
+mean_soc: 0.5
 std_deviation_soc: 0.1
 
 disconnect_by_time: true
