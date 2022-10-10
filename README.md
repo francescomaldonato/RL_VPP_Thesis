@@ -14,7 +14,7 @@ A scenario visualization of such implemented system is shown below.
 
 The simulation configuration parameters set already loaded is shown below. This can be changed by modifying the ELvis config file in the `data/config_builder/` folder (explained below).
 
-![alt text](https://github.com/francescomaldonato/RL_VPP_Thesis/blob/main/data/images/Elvis_config.png?raw=true)
+![alt text](https://github.com/francescomaldonato/RL_VPP_Thesis/blob/main/data/images/ELVIS_data_25.png?raw=true)
 [Assumptions of 20 EVs arrival per week for an average parking time of 24 hours in the grid with an average of 50% available battery at arrival. Available car type: Tesla Model S]
 
 ## Initialization (quick VPP simulation)
@@ -42,6 +42,7 @@ RL_VPP_Thesis:
     - `35EVs_RecurrentPPO_VPP_simulator.ipynb`
     - `30EVs_RecurrentPPO_VPP_simulator.ipynb`
     - `25EVs_RecurrentPPO_VPP_simulator.ipynb`
+    - `20EVs_RecurrentPPO_VPP_simulator.ipynb`
     - `15EVs_RecurrentPPO_VPP_simulator.ipynb`
     - `10EVs_RecurrentPPO_VPP_simulator.ipynb`
 
@@ -118,6 +119,7 @@ You can check the experiments results for different EVs numbers (weekly arrivals
 - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/EV_experiment_notebooks/35EVs_RecurrentPPO_VPP_simulator.ipynb
 - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/EV_experiment_notebooks/30EVs_RecurrentPPO_VPP_simulator.ipynb
 - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/EV_experiment_notebooks/25EVs_RecurrentPPO_VPP_simulator.ipynb
+- https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/EV_experiment_notebooks/20EVs_RecurrentPPO_VPP_simulator.ipynb
 - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/EV_experiment_notebooks/15EVs_RecurrentPPO_VPP_simulator.ipynb
 - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/EV_experiment_notebooks/10EVs_RecurrentPPO_VPP_simulator.ipynb
 
