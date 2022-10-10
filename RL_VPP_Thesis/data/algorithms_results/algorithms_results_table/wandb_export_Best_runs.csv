@@ -1,0 +1,6 @@
+Name,underconsume,overconsume,overcost,av_EV_energy_left,cumulative_reward
+RecurrentPPO_Best,5521.87,1981.361,69.392,67.04,417408.2
+A2C_Best,13078.36,6757.376,249.43,64.31,153080.9
+MaskablePPO_Best,12445.26,1769.706,66.52,59.92,227422.6
+TRPO_Best,6867.678,1601.168,54.79,65.4,357075.1
+Optimal,0.01,0.01,0.01,75.08,450000
