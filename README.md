@@ -32,12 +32,19 @@ RL_VPP_Thesis:
 - `VPP_simulator.ipynb` (Notebook to test the VPP performances and features with the best trained model, currently RecurrentPPO)
 - `RL_control-strategies_for_EVs_fleet_VPP.pdf` (Developed thesis paper of the research)
 
-- Simulator_notebooks: (folder with other notebooks to test the VPP with different RL algorithm)
+- Algorithm_simulator_notebooks: (folder with notebooks to test the VPP with different RL algorithm)
     - `A2C_VPP_simulator.ipynb`
     - `MaskablePPO_VPP_simulator.ipynb`
     - `TRPO_VPP_simulator.ipynb`
     - `RecurrentPPO_VPP_simulator.ipynb`
-    
+
+- EV_experiment_notebooks: (folder with notebooks to test different EVs numbers (weekly arrivals) in the VPP simulation)
+    - `35EVs_RecurrentPPO_VPP_simulator.ipynb`
+    - `30EVs_RecurrentPPO_VPP_simulator.ipynb`
+    - `25EVs_RecurrentPPO_VPP_simulator.ipynb`
+    - `15EVs_RecurrentPPO_VPP_simulator.ipynb`
+    - `10EVs_RecurrentPPO_VPP_simulator.ipynb`
+
 - Agent_trainer_notebooks: (folder with the notebooks to train the VPP RL agent with the indicated set of hyperparameters for each RL algorithm)
     - `A2C_VPP_agent_trainer.ipynb`
     - `MaskablePPO_VPP_agent_trainer.ipynb`
@@ -84,10 +91,10 @@ RL_VPP_Thesis:
     - TRPO (Trust Region Policy Optimization)
     - RecurrentPPO (Recurrent Proximal Policy Optimization)
 - Load it on Google Colaboratory by substituting the URL address first part (https://github.com/) with the Colab github loader address (https://colab.research.google.com/github/). Direct access notebooks links:
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Simulator_notebooks/A2C_VPP_simulator.ipynb
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Simulator_notebooks/MaskablePPO_VPP_simulator.ipynb
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Simulator_notebooks/TRPO_VPP_simulator.ipynb
-    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Simulator_notebooks/RecurrentPPO_VPP_simulator.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Algorithm_simulator_notebooks/A2C_VPP_simulator.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Algorithm_simulator_notebooks/MaskablePPO_VPP_simulator.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Algorithm_simulator_notebooks/TRPO_VPP_simulator.ipynb
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Algorithm_simulator_notebooks/RecurrentPPO_VPP_simulator.ipynb
 - Check the VPP results and interactive plots already loaded in the notebook.
 - If you wish to test again the VPP performances, re-run the whole notebook.
 
@@ -106,6 +113,13 @@ In the `data/config_builder/` folder you can find the Elvis YAML config files.
     - `wohnblock_household_simulation_adaptive_22.yaml` (22 EVs arrivals per week with 55% av.battery) 
     - `wohnblock_household_simulation_adaptive_30.yaml` (30 EVs arrivals per week with 65% av.battery) 
 - Then re-run the whole notebook to test the VPP experiment performances.
+
+You can check the experiments results for different EVs numbers (weekly arrivals) already loaded in the folder `EV_experiment_notebooks`. Direct access notebooks links:
+- https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/EV_experiment_notebooks/35EVs_RecurrentPPO_VPP_simulator.ipynb
+- https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/EV_experiment_notebooks/30EVs_RecurrentPPO_VPP_simulator.ipynb
+- https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/EV_experiment_notebooks/25EVs_RecurrentPPO_VPP_simulator.ipynb
+- https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/EV_experiment_notebooks/15EVs_RecurrentPPO_VPP_simulator.ipynb
+- https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/EV_experiment_notebooks/10EVs_RecurrentPPO_VPP_simulator.ipynb
 
 ### Input datasets visualization (training, testing, validating)
 - Open a dataset-merger notebook in the `data` folder, chosing among training, testing, validating.
