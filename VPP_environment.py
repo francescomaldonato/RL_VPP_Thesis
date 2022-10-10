@@ -695,6 +695,8 @@ class VPPEnv(Env):
             self.VPP_table["EVs_id"] = self.avail_EVs_id
             self.VPP_table["actions"] = self.VPP_actions
             self.VPP_table["mask_truth"] = self.action_truth_list
+            self.VPP_table["ev_charged_pwr"] = self.charging_ev_power
+            self.VPP_table["ev_discharged_pwr"] = self.discharging_ev_power
             self.VPP_table["load"] = self.total_load
             self.VPP_table["load_reward"] = self.load_reward_hist
             self.VPP_table["EV_reward"] = self.EVs_reward_hist
