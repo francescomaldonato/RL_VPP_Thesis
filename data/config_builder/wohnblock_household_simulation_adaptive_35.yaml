@@ -2,7 +2,7 @@ start_date: '2022-01-01T00:00:00'
 end_date: '2023-01-01T00:00:00'
 resolution: '0:15:00'
 
-num_charging_events: 30
+num_charging_events: 35
 mean_park: 23.99
 std_deviation_park: 1
 mean_soc: 0.5

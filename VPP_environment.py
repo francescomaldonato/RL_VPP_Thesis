@@ -705,7 +705,7 @@ class VPPEnv(Env):
             self.cumulative_reward = np.sum(self.reward_hist)
             self.load_t_reward = np.sum(self.load_reward_hist)
             self.EVs_energy_reward = np.sum(self.EVs_reward_hist)
-
+            self.quick_results = np.array([str(self.EVs_n)+"_EVs", self.underconsumed_en, self.overconsumed_en, self.sim_overcost, self.av_EV_energy_left, self.cumulative_reward])
             print(f"SCORE:  Cumulative_reward= {round(self.cumulative_reward,2)} - Step_rewars (load_t= {round(self.load_t_reward,2)}, EVs_energy_t= {round(self.EVs_energy_reward,2)})\n",
                     f"- Final_rewards (EVs_energy= {round(self.AV_EVs_energy_reward,2)}, Overconsume= {round(self.overconsume_reward,2)}, Underconsume= {round(self.underconsume_reward,2)}, Overcost= {round(self.overcost_reward,2)})")
             #__END__ FINAL SECTION
@@ -836,6 +836,7 @@ class VPPEnv(Env):
         #self.VPP_energies = self.Init_space["Available_energy_sources"] #[DELETED]
         self.invalid_actions_t = np.ones(len(self.actions_set), dtype=bool)
         self.VPP_table = []
+        self.quick_results = []
         #Set starting cond.
         self.state = self.Init_space
         #reset vpp session time
