@@ -40,6 +40,7 @@ RL_VPP_Thesis:
 
 - EV_experiment_notebooks: (folder with notebooks to test different EVs numbers (weekly arrivals) in the VPP simulation)
     - `EVs_RecurrentPPO_VPP_tester.ipynb`
+    - `EVs_RecurrentPPO_VPP_validator.ipynb`
     - `35EVs_RecurrentPPO_VPP_simulator.ipynb`
     - `30EVs_RecurrentPPO_VPP_simulator.ipynb`
     - `25EVs_RecurrentPPO_VPP_simulator.ipynb`
@@ -203,8 +204,9 @@ You can launch an Hyperparameters sweep session for a selected algorithm.
 Plot the Hyperparameters sweep results and the algorithm performances obtained and stored in the `data/algorithms_results/algorithms_results_table` in the notebook:
 - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/algorithms_results/Algorithms_results_plots.ipynb
 
-Plot the VPP tuning experiments results based on EVs arrival, from the `data/algorithms_results/algorithms_results_table` in the notebook:
-- https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/algorithms_results/Experiments_results_plots.ipynb
+Plot the VPP tuning experiments results (for testing and validating datatsets) based on EVs arrival, from the `data/algorithms_results/algorithms_results_table` in the notebook:
+- https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/algorithms_results/Experiments_testing_plots.ipynb
+- https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/algorithms_results/Experiments_validator_plots.ipynb
 
 The tables are extracted from the wandb.ai Sweep page for each Algorithm. Check out the 2D and 3D graphs already loaded.
 
