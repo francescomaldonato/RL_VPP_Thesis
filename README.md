@@ -15,7 +15,7 @@ A scenario visualization of such implemented system is shown below.
 The simulation configuration parameters set already loaded is shown below. This can be changed by modifying the ELvis config file in the `data/config_builder/` folder (explained below).
 
 ![alt text](https://github.com/francescomaldonato/RL_VPP_Thesis/blob/main/data/images/ELVIS_data_25.png?raw=true)
-[Assumptions of 20 EVs arrival per week for an average parking time of 24 hours in the grid with an average of 50% available battery at arrival. Available car type: Tesla Model S]
+[Assumptions of 25 EVs arrival per week for an average parking time of 24 hours in the grid with an average of 50% available battery at arrival. Available car type: Tesla Model S]
 
 ## Initialization (quick VPP simulation)
 - Open the VPP_environment notebook on Google Colaboratory at:
@@ -39,6 +39,7 @@ RL_VPP_Thesis:
     - `RecurrentPPO_VPP_simulator.ipynb`
 
 - EV_experiment_notebooks: (folder with notebooks to test different EVs numbers (weekly arrivals) in the VPP simulation)
+    - `EVs_RecurrentPPO_VPP_tester.ipynb`
     - `35EVs_RecurrentPPO_VPP_simulator.ipynb`
     - `30EVs_RecurrentPPO_VPP_simulator.ipynb`
     - `25EVs_RecurrentPPO_VPP_simulator.ipynb`
@@ -79,7 +80,7 @@ RL_VPP_Thesis:
     - images: (folder with plots of the best results obtained)
     - algorithms_results: (folder with algorithm evaluation notebook and plots)
         - `Algorithms_results_plot.ipynb` (notebook that plots Algorithms performances)
-        - algorithms_results_table: (folder containing algorithms sweep results tables downloaded from wandb.ai)
+        - algorithms_results_table: (folder containing algorithms sweep results tables downloaded from wandb.ai and VPP Experiments based on EVs arrivals)
         - algorithms_graphs: (folder containing algorithms results graphs)
     - wandb: (folder with Weights&Biases training data stored)
         - tensorboard_log: (folder where training tensorboard log files are stored)
