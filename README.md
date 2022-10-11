@@ -199,10 +199,12 @@ You can launch an Hyperparameters sweep session for a selected algorithm.
 - Run the whole notebook to start tuning the model
 - Check Hyperparameter Sweep results at the experiment Sweep page.
 
-## Algorithm results graphs
+## Algorithm and Experiments results graphs
 Plot the Hyperparameters sweep results and the algorithm performances obtained and stored in the `data/algorithms_results/algorithms_results_table` in the notebook:
+- https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/algorithms_results/Algorithms_results_plots.ipynb
 
-https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/algorithms_results/Algorithms_results_plots.ipynb
+Plot the VPP tuning experiments results based on EVs arrival, from the `data/algorithms_results/algorithms_results_table` in the notebook:
+- https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/data/algorithms_results/Experiments_results_plots.ipynb
 
 The tables are extracted from the wandb.ai Sweep page for each Algorithm. Check out the 2D and 3D graphs already loaded.
 
