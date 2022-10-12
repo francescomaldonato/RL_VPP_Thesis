@@ -32,7 +32,8 @@ RL_VPP_Thesis:
 - `VPP_simulator.ipynb` (Notebook to test the VPP performances and features with the best trained model, currently RecurrentPPO)
 - `RL_control-strategies_for_EVs_fleet_VPP.pdf` (Developed thesis paper of the research)
 
-- Algorithm_simulator_notebooks: (folder with notebooks to test the VPP with different RL algorithm)
+- Algorithm_simulator_notebooks: (folder with notebooks to test the VPP with different RL algorithms or with random actions)
+    - `1-Random_VPP_simulator.ipynb`
     - `A2C_VPP_simulator.ipynb`
     - `MaskablePPO_VPP_simulator.ipynb`
     - `TRPO_VPP_simulator.ipynb`
@@ -100,6 +101,11 @@ RL_VPP_Thesis:
     - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Algorithm_simulator_notebooks/RecurrentPPO_VPP_simulator.ipynb
 - Check the VPP results and interactive plots already loaded in the notebook.
 - If you wish to test again the VPP performances, re-run the whole notebook.
+
+## VPP environment and Datasets debug with random-simulation
+For debugging purposes and to cross-check datasets loading and Algorithm actual performances, the `1-Random_VPP_simulator.ipynb` notebook is provided to run random simulations without any RL model choosing actions. 
+- Load it on Google Colaboratory by substituting the URL address first part (https://github.com/) with the Colab github loader address (https://colab.research.google.com/github/). Direct access notebooks links:
+    - https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/Algorithm_simulator_notebooks/1-Random_VPP_simulator.ipynb
 
 ## Load different Elvis simulation config set and run experiments
 In the `data/config_builder/` folder you can find the Elvis YAML config files.
