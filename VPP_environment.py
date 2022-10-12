@@ -166,18 +166,18 @@ class VPPEnv(Env):
         self.Elvis_overcost = cost_array[cost_array > 0].sum()
         #Init print out
         print("-DATASET: House&RW_energy_sum=kWh ", round(self.sum_HRW_power,2),
-                ", over-consume=kWh ", round(self.HRW_overenergy,2),
-                ", under-consume=kWh ", round(self.HRW_underenergy,2),
-                ", Total_cost=€ ", round(self.cost_HRW_power,2),
-                ", overcost=€ ", round(self.overcost_HRW_power,2))
+                ", Grid_used_en=kWh ", round(self.HRW_overenergy,2),
+                ", RE-to-vehicle_unused_en=kWh ", round(self.HRW_underenergy,2),
+                ", Total_selling_cost=€ ", round(self.cost_HRW_power,2),
+                ", Grid_cost=€ ", round(self.overcost_HRW_power,2))
         print("- ELVIS.Simulation (Av.EV_SOC= ", self.EVs_mean_soc, "%):\n",
             "Sum_Energy=kWh ", round(self.sum_Elvis_total_load,2),
-            ", over-consume=kWh ", round(self.Elvis_overconsume,2),
-            ", under-consume=kWh ", round(self.Elvis_underconsume,2),
-            ", Total_cost=€ ", round(self.Elvis_total_cost,2),
-            ", overcost=€ ", round(self.Elvis_overcost,2),
+            ", Grid_used_en=kWh ", round(self.Elvis_overconsume,2),
+            ", RE-to-vehicle_unused_en=kWh ", round(self.Elvis_underconsume,2),
+            ", Total_selling_cost=€ ", round(self.Elvis_total_cost,2),
+            ", Grid_cost=€ ", round(self.Elvis_overcost,2),
             ", Charging_events= ", self.simul_charging_events_n,
-            "\n- Exp.VPP_goals: Energy_consumed=kWh 0, Av.load=kW 0, Std.load=kW 0, Total_cost=€ 0",
+            "\n- Exp.VPP_goals: Grid_used_en=kWh 0, RE-to-vehicle_unused_en=kWh 0, Grid_cost=€ 0",
             ", Av.EV_en_left=kWh ",round(self.exp_ev_en_left,2))
 
         #Set VPP session length
@@ -667,10 +667,10 @@ class VPPEnv(Env):
             reward = self.eval_final_reward(reward)
             print("- VPP.Simulation results\n",
                 "LOAD_INFO: Sum_Energy=KWh ", round(self.sim_total_load,2),
-                ", over-consume=KWh ", round(self.overconsumed_en,2),
-                ", under-consume=KWh ", round(self.underconsumed_en,2),
-                ", Total_cost=€ ", round(self.sim_total_cost,2),
-                ", Overcost=€ ", round(self.sim_overcost,2),
+                ", Grid_used_en=KWh ", round(self.overconsumed_en,2),
+                ", RE-to-vehicle_unused_en=KWh ", round(self.underconsumed_en,2),
+                ", Total_selling_cost=€ ", round(self.sim_total_cost,2),
+                ", Grid_cost=€ ", round(self.sim_overcost,2),
                 "\n",
                 "EV_INFO: Av.EV_energy_leaving=kWh ", round(self.av_EV_energy_left,2),
                 ", Std.EV_energy_leaving=kWh ", round(self.std_EV_energy_left,2),
@@ -707,7 +707,7 @@ class VPPEnv(Env):
             self.EVs_energy_reward = np.sum(self.EVs_reward_hist)
             self.quick_results = np.array([str(self.EVs_n)+"_EVs", self.underconsumed_en, self.overconsumed_en, self.sim_overcost, self.av_EV_energy_left, self.cumulative_reward])
             print(f"SCORE:  Cumulative_reward= {round(self.cumulative_reward,2)} - Step_rewars (load_t= {round(self.load_t_reward,2)}, EVs_energy_t= {round(self.EVs_energy_reward,2)})\n",
-                    f"- Final_rewards (EVs_energy= {round(self.AV_EVs_energy_reward,2)}, Overconsume= {round(self.overconsume_reward,2)}, Underconsume= {round(self.underconsume_reward,2)}, Overcost= {round(self.overcost_reward,2)})")
+                    f"- Final_rewards (Av.EVs_energy= {round(self.AV_EVs_energy_reward,2)}, Grid_used_en= {round(self.overconsume_reward,2)}, RE-to-vehicle_unused_en= {round(self.underconsume_reward,2)}, Grid_cost= {round(self.overcost_reward,2)})")
             #__END__ FINAL SECTION
         #set placeholder for info
         info = {}
@@ -790,13 +790,13 @@ class VPPEnv(Env):
         #Reset environment printout:
         print("- ELVIS.Simulation (Av.EV_SOC= ", self.EVs_mean_soc, "%):\n",
             "Sum_Energy=kWh ", round(self.sum_Elvis_total_load,2),
-            ", over-consume=kWh ", round(self.Elvis_overconsume,2),
-            ", under-consume=kWh ", round(self.Elvis_underconsume,2),
-            ", Total_cost=€ ", round(self.Elvis_total_cost,2),
-            ", overcost=€ ", round(self.Elvis_overcost,2),
+            ", Grid_used_en=kWh ", round(self.Elvis_overconsume,2),
+            ", RE-to-vehicle_unused_en=kWh ", round(self.Elvis_underconsume,2),
+            ", Total_selling_cost=€ ", round(self.Elvis_total_cost,2),
+            ", Grid_cost=€ ", round(self.Elvis_overcost,2),
             ", Av.EV_en_left=kWh ", round(Elvis_av_EV_energy_left,2),
             ", Charging_events= ", self.simul_charging_events_n,
-            "\n- Exp.VPP_goals: Energy_consumed=kWh 0, Av.load=kW 0, Std.load=kW 0, Total_cost=€ 0",
+            "\n- Exp.VPP_goals: Grid_used_en=kWh 0, RE-to-vehicle_unused_en=kWh 0, Grid_cost=€ 0",
             ", Av.EV_en_left=kWh ",round(self.exp_ev_en_left,2))
         #__END__ SECTION 2
         
@@ -977,7 +977,7 @@ class VPPEnv(Env):
         cost_x = np.linspace(self.overcost_range[0], self.overcost_range[-1], 200)
         cost_y = np.interp(cost_x, self.overcost_range, self.overcost_reward_range)
 
-        rewards_fig = make_subplots(subplot_titles=('Step EVs energy (and EVs en.leaving) reward f.','Step load reward f.', 'Final overconsumed energy reward f.', 'Final EVs energy reward f.', 'Final Overcost reward f.', 'Final underconsumed energy reward f.'),
+        rewards_fig = make_subplots(subplot_titles=('Step EVs energy (when leaving) reward f.','Step load reward f.', 'Final Grid energy used reward f.', 'Final Av.EVs-departure energy reward f.', 'Final Overcost reward f.', 'Final RE-to-vehicle unused energy reward f.'),
                             rows=2, cols=3,
                             specs=[[{"secondary_y": False},{"secondary_y": False},{"secondary_y": False}],
                                     [{"secondary_y": False},{"secondary_y": False},{"secondary_y": False}]])
@@ -986,13 +986,13 @@ class VPPEnv(Env):
                             row=1, col=1, secondary_y=False)
         rewards_fig.add_trace(go.Scatter(x=load_x, y=load_y, name="step_load", stackgroup='1'),
                             row=1, col=2, secondary_y=False)
-        rewards_fig.add_trace(go.Scatter(x=overconsume_x, y=overconsume_y, name="final_overconsumed_en", stackgroup='1'),
+        rewards_fig.add_trace(go.Scatter(x=overconsume_x, y=overconsume_y, name="final_Grid_used_en", stackgroup='1'),
                             row=1, col=3, secondary_y=False)
         rewards_fig.add_trace(go.Scatter(x=battery_x, y=final_battery_y, name="final_Av.ev_energy", stackgroup='1'),
                             row=2, col=1, secondary_y=False)
-        rewards_fig.add_trace(go.Scatter(x=cost_x, y=cost_y, name="final_overcost", stackgroup='1'),
+        rewards_fig.add_trace(go.Scatter(x=cost_x, y=cost_y, name="final_Grid-cost", stackgroup='1'),
                             row=2, col=2, secondary_y=False)
-        rewards_fig.add_trace(go.Scatter(x=underconsume_x, y=underconsume_y, name="final_underconsumed_en", stackgroup='1'),
+        rewards_fig.add_trace(go.Scatter(x=underconsume_x, y=underconsume_y, name="final_RE-to-vehicle_unused_en", stackgroup='1'),
                             row=2, col=3, secondary_y=False)
         
         
@@ -1077,13 +1077,13 @@ class VPPEnv(Env):
 
         # Down
         Elvis_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["overcost"], line={'color':'rgb(210, 80, 75)'}, name="overcost", stackgroup="cost"),
+            go.Scatter(x=self.elvis_time_serie, y=self.VPP_data["overcost"], line={'color':'rgb(210, 80, 75)'}, name="grid-cost", stackgroup="cost"),
             row=1, col=1, secondary_y=True)
 
         Elvis_fig['layout']['yaxis1'].update(title='kW')
         Elvis_fig['layout']['yaxis2'].update(title='€')
         Elvis_fig['layout']['legend'].update(title='Time series')
-        Elvis_fig.update_layout(title_text='Elvis Load, EVs power, Overcost', width=1500,height= 600, xaxis_rangeslider_visible=True, xaxis_rangeslider_thickness=0.05, xaxis_range=["2022-06-01 00:00:00", "2022-07-01 00:00:00"])
+        Elvis_fig.update_layout(title_text='Elvis Load, EVs power, Grid-cost', width=1500,height= 600, xaxis_rangeslider_visible=True, xaxis_rangeslider_thickness=0.05, xaxis_range=["2022-06-01 00:00:00", "2022-07-01 00:00:00"])
         #Elvis_fig.show()
         return Elvis_fig
 
@@ -1123,14 +1123,14 @@ class VPPEnv(Env):
             row=1, col=1, secondary_y=False)
         # Down
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.optimized_VPP_data["overcost"],line={'color':'rgb(210, 80, 75)'}, name="overcost", stackgroup="cost"),
+            go.Scatter(x=self.elvis_time_serie, y=self.optimized_VPP_data["overcost"],line={'color':'rgb(210, 80, 75)'}, name="grid-cost", stackgroup="cost"),
             row=1, col=1, secondary_y=True)
 
         VPP_opt_fig['layout']['yaxis1'].update(title='kW')
         #VPP_opt_fig['layout']['yaxis2'].update(title='kW')
         VPP_opt_fig['layout']['yaxis2'].update(title='€')
         VPP_opt_fig['layout']['legend'].update(title='Time series')
-        VPP_opt_fig.update_layout(title_text='VPP Load, EVs power, Overcost', width=1500,height= 600, xaxis_rangeslider_visible=True, xaxis_rangeslider_thickness=0.05, xaxis_range=["2022-06-01 00:00:00", "2022-07-01 00:00:00"])
+        VPP_opt_fig.update_layout(title_text='VPP Load, EVs power, Grid-cost', width=1500,height= 600, xaxis_rangeslider_visible=True, xaxis_rangeslider_thickness=0.05, xaxis_range=["2022-06-01 00:00:00", "2022-07-01 00:00:00"])
         #VPP_opt_fig.show()
         return VPP_opt_fig
     
@@ -1236,7 +1236,7 @@ class VPPEnv(Env):
 
         final_reward = (self.AV_EVs_energy_reward + self.overconsume_reward + self.underconsume_reward + self.overcost_reward)
         step_reward = (self.EVs_energy_reward + self.load_t_reward)
-        rewards_fig.add_trace(go.Bar(x=["cumulative", 'final_total', "step_total", "step_EV_en", "step_load", "final_Av_EV_en", "final_over_en",  "final_under_en","final_overcost"],
+        rewards_fig.add_trace(go.Bar(x=["cumulative", 'final_total', "step_total", "step_EV_en", "step_load", "final_Av_EV_en", "final_Grid_en",  "final_RE-to-EV_unused_en","final_Grid-cost"],
                             y=[self.cumulative_reward, final_reward, step_reward, self.EVs_energy_reward, self.load_t_reward, self.AV_EVs_energy_reward, self.overconsume_reward, self.underconsume_reward, self.overcost_reward],
                             marker_color=['rgb(117, 122, 178)', 'rgb(156, 99, 255)', 'rgb(115, 212, 127)', 'rgb(210, 80, 75)', 'rgb(45, 167, 176)', 'rgb(238, 173, 81)', 'rgb(249, 152, 179)', 'rgb(77, 218, 193)', 'rgb(97, 159, 210)']),
                             row=1, col=1, secondary_y=False)
@@ -1252,7 +1252,7 @@ class VPPEnv(Env):
         """
         Method to plot and visualize with bars the VPP simulation with controlled charging results compared to the ELVIS uncontrolled charging ones.
         """
-        comparison_fig = make_subplots(subplot_titles=('Av.EVs energy departure','Over-consumed en.','Under-consumed en.', 'Overcost'),
+        comparison_fig = make_subplots(subplot_titles=('Av.EVs energy at departure','Grid used en.','RE-to-vehicle unused en.', 'Grid-cost'),
                             rows=1, cols=4,
                             specs=[[{"secondary_y": False}, {"secondary_y": False},{"secondary_y": False},{"secondary_y": False}]])
 
