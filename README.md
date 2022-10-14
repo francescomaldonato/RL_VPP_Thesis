@@ -30,7 +30,7 @@ It will automatically clone in the remote machine the repository: https://github
 RL_VPP_Thesis:
 - `VPP_environment.py` (Python script containing the environment definition and functions)
 - `VPP_simulator.ipynb` (Notebook to test the VPP performances and features with the best trained model, currently RecurrentPPO)
-- `RL_control-strategies_for_EVs_fleet_VPP.pdf` (Developed thesis paper of the research)
+- `RL_control-strategies_for_EVs_fleet_VPP.pdf` (Developed thesis paper of the research) [Not available yet]
 
 - Algorithm_simulator_notebooks: (folder with notebooks to test the VPP with different RL algorithms or with random actions)
     - `1-Random_VPP_simulator.ipynb`
@@ -191,7 +191,7 @@ You can train your own model with your Hyperparameters set.
 
 ## Algorithm Hyperparameter tuning
 You can launch an Hyperparameters sweep session for a selected algorithm.
-- In the `Agent_trainer_notebooks` folder, open the (X)_VPP_agent_trainer notebook for the (X) Algorithm you want to tune. Choose among the algorithms:
+- In the `Hyperparameters_sweep_notebooks` folder, open the (X)_VPP_agent_trainer notebook for the (X) Algorithm you want to tune. Choose among the algorithms:
     - A2C (Advantage Actor-Critic)
     - MaskablePPO (Maskable Proximal Policy Optimization)
     - TRPO (Trust Region Policy Optimization)
