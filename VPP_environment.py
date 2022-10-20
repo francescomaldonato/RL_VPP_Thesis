@@ -679,11 +679,11 @@ class VPPEnv(Env):
 
             #RENEWABLE-SELF-CONSUMPTION evaluation section
             #Households consump. energy not covered from the Renewables
-            VPP_loads["self-consump."] = VPP_loads["households_power"] - VPP_loads["RE_power"]
+            VPP_loads["self-consump."] = VPP_loads["household_power"] - VPP_loads["RE_power"]
             VPP_loads["RE-uncovered_consump."] = VPP_loads["self-consump."].mask(VPP_loads["self-consump."].lt(0)).fillna(0) #Filter only positive values
             self.house_uncovered_RE = self.VPP_loads["RE-uncovered_consump."].sum()/4 #kWh
             #Energy from the Renewables directly used by the households
-            VPP_loads["self-consump."] = VPP_loads["households_power"] - VPP_loads["RE-uncovered_consump."]
+            VPP_loads["self-consump."] = VPP_loads["household_power"] - VPP_loads["RE-uncovered_consump."]
             self.VPP_house_selfc = VPP_loads["self-consump."].sum()/4 #kWh
             #Energy from the Renewables exported to the grid
             VPP_loads["self_EV-charging"] = VPP_loads["RE_power"] - VPP_loads["self-consump."]
