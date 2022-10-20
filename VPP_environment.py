@@ -853,8 +853,8 @@ class VPPEnv(Env):
         self.Elvis_RE2house_en = VPP_data["Elvis_RE2house"].sum()/4 #kWh
         #Elvis Grid2EV
         VPP_data["Elvis_RE2EV"] = - VPP_data["House&RW_load"].mask(VPP_data["House&RW_load"].gt(0)).fillna(0) #Filter only negative values
-        VPP_data["Elvis_RE2EV"] = VPP_data["ev_power"] - VPP_data["self_RE2EV"]
-        VPP_data["Elvis_Grid2EV"] = VPP_data["self_RE2EV"].mask(VPP_data["self_RE2EV"].lt(0)).fillna(0) #Filter only positive values
+        VPP_data["Elvis_RE2EV"] = VPP_data["ev_power"] - VPP_data["Elvis_RE2EV"]
+        VPP_data["Elvis_Grid2EV"] = VPP_data["Elvis_RE2EV"].mask(VPP_data["Elvis_RE2EV"].lt(0)).fillna(0) #Filter only positive values
         self.Elvis_Grid2EV_en = VPP_data["Elvis_Grid2EV"].sum()/4 #kWh
         #Elvis RE2EV
         VPP_data["Elvis_RE2EV"] = VPP_data["ev_power"] - VPP_data["Elvis_Grid2EV"]
@@ -1037,9 +1037,9 @@ class VPPEnv(Env):
         VPP_data_fig['layout']['yaxis3'].update(title='€/kWh')
         VPP_data_fig['layout']['legend'].update(title='Time series')
         VPP_data_fig.update_layout(title_text='VPP simulation input data', width=1500,height=700, xaxis3_rangeslider_visible=True, xaxis3_rangeslider_thickness=0.05, xaxis_range=["2022-06-01 00:00:00", "2022-07-01 00:00:00"])
-        VPP_data_fig.update_xaxes(range=["2022-06-01 00:00:00", "2022-07-01 00:00:00"], row=1, col=1)
-        VPP_data_fig.update_xaxes(range=["2022-06-01 00:00:00", "2022-07-01 00:00:00"], row=2, col=1)
-        VPP_data_fig.update_xaxes(range=["2022-06-01 00:00:00", "2022-07-01 00:00:00"], row=3, col=1)        
+        VPP_data_fig.update_xaxes(range=["2022-06-01 00:00:00", "2022-06-11 00:00:00"], row=1, col=1)
+        VPP_data_fig.update_xaxes(range=["2022-06-01 00:00:00", "2022-06-11 00:00:00"], row=2, col=1)
+        VPP_data_fig.update_xaxes(range=["2022-06-01 00:00:00", "2022-06-11 00:00:00"], row=3, col=1)        
         #VPP_data_fig.show()
         return VPP_data_fig
     
@@ -1111,9 +1111,9 @@ class VPPEnv(Env):
         
         selfc_rate = (self.self_consumption / en_supply) * 100
         autarky_rate = (self.self_consumption / en_demand) * 100
-        selfc_labels = ["grid export", "direct-self-consump."]
-        selfc_values = [self.HRW_underenergy, self.self_consumption]
-        autarky_labels = ["grid import", "direct-self-consump."]
+        selfc_labels = ["RE2grid-export", "RE2house-self"]
+        selfc_values = [-self.HRW_underenergy, self.self_consumption]
+        autarky_labels = ["Grid2house-import", "RE2house-self"]
         autarky_values = [self.HRW_overenergy, self.self_consumption]
         # Create subplots: use 'domain' type for Pie subplot
         fig = make_subplots(subplot_titles=(f'Self-consumption rate: {round(selfc_rate,1)}%', f'Autarky rate: {round(autarky_rate,1)}%'),
