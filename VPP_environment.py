@@ -147,7 +147,7 @@ class VPPEnv(Env):
         self.houseRW_load = VPP_data["House&RW_load"].values
 
         self.VPP_loads = pd.DataFrame({'time':self.elvis_time_serie, "House&RW_load":self.houseRW_load, "household_power":VPP_data["household_power"].values, "solar_power":VPP_data["solar_power"].values, "wind_power":VPP_data["wind_power"].values})
-        self.VPP_loads = self.optimized_VPP_data.set_index("time")
+        self.VPP_loads = self.VPP_loads.set_index("time")
         
         self.household_consume = VPP_data["household_power"].sum()/4 #kWh
         self.RW_energy = VPP_data["RW_power"].sum()/4 #kWh
