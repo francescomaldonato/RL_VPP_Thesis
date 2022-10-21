@@ -679,37 +679,37 @@ class VPPEnv(Env):
 
             #RENEWABLE-SELF-CONSUMPTION evaluation section
             #Households consump. energy not covered from the Renewables
-            VPP_loads["self-consump."] = VPP_loads["household_power"] - VPP_loads["RE_power"]
-            VPP_loads["RE-uncovered_consump."] = VPP_loads["self-consump."].mask(VPP_loads["self-consump."].lt(0)).fillna(0) #Filter only positive values
+            VPP_loads["house_self-consump."] = VPP_loads["household_power"] - VPP_loads["RE_power"]
+            VPP_loads["RE-uncovered_consump."] = VPP_loads["house_self-consump."].mask(VPP_loads["house_self-consump."].lt(0)).fillna(0) #Filter only positive values
             self.house_uncovered_RE = self.VPP_loads["RE-uncovered_consump."].sum()/4 #kWh
             #Energy from the Renewables directly used by the households
-            VPP_loads["self-consump."] = VPP_loads["household_power"] - VPP_loads["RE-uncovered_consump."]
-            self.VPP_house_selfc = VPP_loads["self-consump."].sum()/4 #kWh
+            VPP_loads["house_self-consump."] = VPP_loads["household_power"] - VPP_loads["RE-uncovered_consump."]
+            self.VPP_house_selfc = VPP_loads["house_self-consump."].sum()/4 #kWh
             #Energy from the Renewables exported to the grid
-            VPP_loads["self_EV-charging"] = VPP_loads["RE_power"] - VPP_loads["self-consump."]
-            VPP_loads["self_EV-charging"] = VPP_loads["charging_ev_power"] - VPP_loads["self_EV-charging"]
+            VPP_loads["house-unused-RE-power"] = VPP_loads["RE_power"] - VPP_loads["house_self-consump."]
+            VPP_loads["self_EV-charging"] = VPP_loads["charging_ev_power"] - VPP_loads["house-unused-RE-power"]
             VPP_loads["RE-grid-export"] = - VPP_loads["self_EV-charging"].mask(VPP_loads["self_EV-charging"].gt(0)).fillna(0) #Filter only negative values
             self.RE_grid_export = VPP_loads["RE-grid-export"].sum()/4 #kWh
             #Energy from the Renewables directly stored in the EVs batteries
             VPP_loads["RE-uncovered_EV-charging"] = VPP_loads["self_EV-charging"].mask(VPP_loads["self_EV-charging"].lt(0)).fillna(0) #Filter only positive values
-            VPP_loads["self_EV-charging"] = VPP_loads["charging_ev_power"] - VPP_loads["self_EV-charging"]
+            VPP_loads["self_EV-charging"] = VPP_loads["charging_ev_power"] - VPP_loads["RE-uncovered_EV-charging"]
             self.VPP_RE2battery = VPP_loads["self_EV-charging"].sum()/4 #kWh
 
             #EV-DISCHARGING-Power-SELF-CONSUMPTION evaluation section
             #Households consump. grid import (Energy not covered from the EVs discharging power and Renewables)
-            VPP_loads["battery-self-consump."] = VPP_loads["RE-uncovered_consump."] - VPP_loads["discharging_ev_power"]
+            VPP_loads["battery-self-consump."] = VPP_loads["RE-uncovered_consump."] - (-VPP_loads["discharging_ev_power"]) #THe discharging EV power is a negative serie
             VPP_loads["house-grid-import"] = VPP_loads["battery-self-consump."].mask(VPP_loads["battery-self-consump."].lt(0)).fillna(0) #Filter only positive values
             self.house_grid_import = VPP_loads["house-grid-import"].sum()/4 #kWh
             #Energy from the EVs discharging power used by the households
             VPP_loads["battery-self-consump."] = VPP_loads["RE-uncovered_consump."] - VPP_loads["house-grid-import"]
             self.VPP_battery_selfc = VPP_loads["battery-self-consump."].sum()/4 #kWh
             #Energy from the EVs discharging power, exported to the grid
-            VPP_loads["self_battery-EV-charging"] = VPP_loads["discharging_ev_power"] - VPP_loads["self-consump."]
-            VPP_loads["self_battery-EV-charging"] = VPP_loads["RE-uncovered_EV-charging"] - VPP_loads["self_battery-EV-charging"]
+            VPP_loads["self_battery-EV-charging"] = (-VPP_loads["discharging_ev_power"]) - VPP_loads["battery-self-consump."] #THe discharging EV power is a negative serie
+            VPP_loads["self_battery-EV-charging"] = VPP_loads["RE-uncovered_EV-charging"] - VPP_loads["self_battery-EV-charging"] #ChargingEVs energy not from renwables - (EVs discharging power not used for the house)
             VPP_loads["battery-grid-export"] = - VPP_loads["self_battery-EV-charging"].mask(VPP_loads["self_battery-EV-charging"].gt(0)).fillna(0) #Filter only negative values
             self.battery_grid_export = VPP_loads["battery-grid-export"].sum()/4 #kWh
             #Energy from the grid stored in other EVs batteries
-            VPP_loads["grid-import_EV-charging"] = VPP_loads["self_EV-charging"].mask(VPP_loads["self_EV-charging"].lt(0)).fillna(0) #Filter only positive values
+            VPP_loads["grid-import_EV-charging"] = VPP_loads["self_battery-EV-charging"].mask(VPP_loads["self_battery-EV-charging"].lt(0)).fillna(0) #Filter only positive values
             self.EVs_grid_import = VPP_loads["grid-import_EV-charging"].sum()/4 #kWh
             #Energy from the EVs discharging power stored in other EVs batteries
             VPP_loads["self_battery-EV-charging"] = VPP_loads["RE-uncovered_EV-charging"] - VPP_loads["grid-import_EV-charging"]
@@ -1119,19 +1119,19 @@ class VPPEnv(Env):
         fig = make_subplots(subplot_titles=(f'Self-consumption rate: {round(selfc_rate,1)}%', f'Autarky rate: {round(autarky_rate,1)}%'),
                             rows=1, cols=2, specs=[[{'type':'domain'}, {'type':'domain'}]])
         
-        fig.add_trace(go.Pie(labels=selfc_labels, values=selfc_values, name="self-consumption", textinfo='label+percent', pull=[0.2, 0]),
+        fig.add_trace(go.Pie(labels=selfc_labels, values=selfc_values, name="self-consumption", textinfo='label+value+percent', pull=[0.1, 0]),
                       1, 1)
-        fig.add_trace(go.Pie(labels=autarky_labels, values=autarky_values, name="autarky", textinfo='label+percent', pull=[0.2, 0]),
+        fig.add_trace(go.Pie(labels=autarky_labels, values=autarky_values, name="autarky", textinfo='label+value+percent', pull=[0.1, 0]),
                       1, 2)
         
         # Use `hole` to create a donut-like pie chart
-        fig.update_traces(hole=.4, hoverinfo="label+percent+name")
+        fig.update_traces(hole=.2, hoverinfo="label+value+percent")
         
         fig.update_layout(
-            title_text="Data-set Autarky and self-consumption",
+            title_text="Data-set Autarky and self-consumption. \nEnergy measuring unit: kWh"+f'\nSupply-energy:{round(en_supply,1)}kWh.     '+ f'\nDemand-energy:{round(en_demand,1)}kWh.',
             # Add annotations in the center of the donut pies.
-            annotations=[dict(text=f'RE-en:{round(en_supply,1)}kWh', x=0.18, y=0.5, font_size=20, showarrow=False),
-                         dict(text=f'Demand-en:{round(en_demand,1)}kWh', x=0.82, y=0.5, font_size=20, showarrow=False)],
+            #annotations=[dict(text=f'Supply-energy:{round(en_supply,1)}kWh', x=0.18, y=0.5, font_size=20, showarrow=False),
+            #             dict(text=f'Demand-energy:{round(en_demand,1)}kWh', x=0.82, y=0.5, font_size=20, showarrow=False)],
             width=1500,height=550,
             showlegend = False)
 
@@ -1155,33 +1155,42 @@ class VPPEnv(Env):
         VPP_autarky_values = [self.house_grid_import, self.EVs_grid_import, self.VPP_house_selfc, self.VPP_RE2battery, self.VPP_battery_selfc, self.VPP_EV2battery]
 
         # Create subplots
-        fig = make_subplots(subplot_titles=(f'Elvis self-consumption rate: {round(self.Elvis_selfc_rate,1)}%', f'Elvis autarky rate: {round(self.Elvis_autarky_rate,1)}%',
-                                            f'VPP self-consumption rate: {round(self.VPP_selfc_rate,1)}%', f'VPP autarky rate: {round(self.VPP_autarky_rate,1)}%'),
+        fig = make_subplots(subplot_titles=('Elvis simulation', 'Elvis simulation',
+                                            'VPP simulation', 'VPP simulation'),
                             rows=2, cols=2,
                             specs=[[{'type':'domain'}, {'type':'domain'}],
                                     [{'type':'domain'}, {'type':'domain'}]])
         
-        fig.add_trace(go.Pie(labels=Elvis_selfc_labels, values=Elvis_selfc_values, name="elvis_self-consumption", textinfo='label+percent', pull=[0.2, 0, 0]),
+        fig.add_trace(go.Pie(labels=Elvis_selfc_labels, values=Elvis_selfc_values, name="elvis_self-consumption", textinfo='label+value+percent', pull=[0.1, 0, 0]),
                       1, 1)
-        fig.add_trace(go.Pie(labels=Elvis_autarky_labels, values=Elvis_autarky_values, name="elvis_autarky", textinfo='label+percent', pull=[0.2, 0.2, 0, 0]),
+        fig.add_trace(go.Pie(labels=Elvis_autarky_labels, values=Elvis_autarky_values, name="elvis_autarky", textinfo='label+value+percent', pull=[0.1, 0.1, 0, 0]),
                       1, 2)
 
-        fig.add_trace(go.Pie(labels=VPP_selfc_labels, values=VPP_selfc_values, name="VPP_self-consumption", textinfo='label+percent', pull=[0.2, 0.2, 0, 0, 0.1]),
+        fig.add_trace(go.Pie(labels=VPP_selfc_labels, values=VPP_selfc_values, name="VPP_self-consumption", textinfo='label+value+percent', pull=[0.1, 0.1, 0, 0, 0]),
                       2, 1)
-        fig.add_trace(go.Pie(labels=VPP_autarky_labels, values=VPP_autarky_values, name="VPP_autarky", textinfo='label+percent', pull=[0.2, 0.2, 0, 0, 0, 0.1]),
+        fig.add_trace(go.Pie(labels=VPP_autarky_labels, values=VPP_autarky_values, name="VPP_autarky", textinfo='label+value+percent', pull=[0.1, 0.1, 0, 0, 0, 0]),
                       2, 2)
         
         # Use `hole` to create a donut-like pie chart
-        fig.update_traces(hole=.4, hoverinfo="label+percent+name")
+        fig.update_traces(hole=.2, hoverinfo="label+value+percent")
         
         fig.update_layout(
             #title_text="Data-set Autarky and self-consumption",
             # Add annotations in the center of the donut pies.
-            annotations=[dict(text=f'Supply-en:{round(self.Elvis_en_produced,1)}kWh', x=0.18, y=0.75, font_size=15, showarrow=False),
-                         dict(text=f'Demand-en:{round(self.Elvis_en_consumed,1)}kWh', x=0.82, y=0.75, font_size=15, showarrow=False),
-                         dict(text=f'Supply-en:{round(self.VPP_energy_produced,1)}kWh', x=0.18, y=0.25, font_size=15, showarrow=False),
-                         dict(text=f'Demand-en:{round(self.VPP_energy_consumed,1)}kWh', x=0.82, y=0.25, font_size=15, showarrow=False)],
-            width=1500,height=750,
+            annotations=[#dict(text='Elvis simulation', x=0.25, y=0.95, font_size=14, showarrow=False),
+                         dict(text=f'Self-consumption rate: {round(self.Elvis_selfc_rate,1)}%', x=0.4, y=0.88, font_size=12, showarrow=False),
+                         dict(text=f'Supply-en: {round(self.Elvis_en_produced,1)} kWh', x=0.4, y=0.83, font_size=12, showarrow=False),
+                         #dict(text='Elvis simulation', x=0.65, y=0.95, font_size=14, showarrow=False),
+                         dict(text= f'Autarky rate: {round(self.Elvis_autarky_rate,1)}%', x=1, y=0.88, font_size=12, showarrow=False),
+                         dict(text= f'Demand-en:{round(self.Elvis_en_consumed,1)}kWh', x=1, y=0.83, font_size=12, showarrow=False),
+                         #dict(text='VPP simulation', x=0.05, y=0.35, font_size=14, showarrow=False),
+                         dict(text=f'Self-consumption rate: {round(self.VPP_selfc_rate,1)}%', x=0.4, y=0.38, font_size=12, showarrow=False),
+                         dict(text=f'Supply-en: {round(self.VPP_energy_produced,1)} kWh', x=0.4, y=0.33, font_size=12, showarrow=False),
+                         #dict(text='VPP simulation', x=0.65, y=0.35, font_size=14, showarrow=False),
+                         dict(text= f'Autarky rate: {round(self.VPP_autarky_rate,1)}%', x=1, y=0.38, font_size=12, showarrow=False),
+                         dict(text= f'Demand-en:{round(self.VPP_energy_consumed,1)}kWh', x=1, y=0.33, font_size=12, showarrow=False)],
+
+            width=1550,height=800,
             showlegend = False)
 
         #fig.show()
@@ -1323,65 +1332,65 @@ class VPPEnv(Env):
         #UP
         #Households consumption power sources
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.VPP_loads["self-consump."], name="consumed_RE2house_self-consump.", stackgroup='positive',line={'color':'#67ff24'}),
+            go.Scatter(x=self.elvis_time_serie, y=self.VPP_loads["house_self-consump."], name="RE2house_self-consump.", stackgroup='positive',line={'color':'#67ff24'}),
             row=1, col=1, secondary_y=False)
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.VPP_loads["battery-self-consump."], name="consumed_EV2house_self-consump.", stackgroup='positive',line={'color':'#fc24ff'}),
+            go.Scatter(x=self.elvis_time_serie, y=self.VPP_loads["battery-self-consump."], name="EV2house_self-consump.", stackgroup='positive',line={'color':'#fc24ff'}),
             row=1, col=1, secondary_y=False)
         VPP_opt_fig.add_trace(
             go.Scatter(x=self.elvis_time_serie, y=self.VPP_loads["house-grid-import"], name="Grid2house_import", stackgroup='positive'),
             row=1, col=1, secondary_y=False)
         #EV charging power sources
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.VPP_loads["self_EV-charging"], name="consumed_RE2EV_self-consump.", stackgroup='positive',line={'color':'#24f3ff'}),
+            go.Scatter(x=self.elvis_time_serie, y=self.VPP_loads["self_EV-charging"], name="RE2EV_self-consump.", stackgroup='positive',line={'color':'#24f3ff'}),
             row=1, col=1, secondary_y=False)
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.VPP_loads["self_battery-EV-charging"], name="consumed_EV2EV_self-consump.", stackgroup='positive',line={'color':'#fff824'}),
+            go.Scatter(x=self.elvis_time_serie, y=self.VPP_loads["self_battery-EV-charging"], name="EV2EV_self-consump.", stackgroup='positive',line={'color':'#fff824'}),
             row=1, col=1, secondary_y=False)
         VPP_opt_fig.add_trace(
             go.Scatter(x=self.elvis_time_serie, y=self.VPP_loads["grid-import_EV-charging"], name="Grid2EV_import", stackgroup='positive'),
             row=1, col=1, secondary_y=False)
         #Consumption entities
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.VPP_loads["household_power"], name="household_power",line={'color':'#5c5cd6'}, stackgroup='consumed'),
+            go.Scatter(x=self.elvis_time_serie, y=self.VPP_loads["household_power"], name="CO_household_power",line={'color':'#5c5cd6'}, stackgroup='consumed'),
             row=1, col=1, secondary_y=False)
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.VPP_loads["charging_ev_power"],line={'color':'#45d3d3'}, name="EV_charging_pwr", stackgroup='consumed'),
+            go.Scatter(x=self.elvis_time_serie, y=self.VPP_loads["charging_ev_power"],line={'color':'#45d3d3'}, name="CO_EV_charging_pwr", stackgroup='consumed'),
             row=1, col=1, secondary_y=False)
 
         # DOWN
         #Renewable produced power usage
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_loads["self-consump."], name="produced_RE2house_self-consump.", stackgroup='negative',line={'color':'#67ff24'}),
+            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_loads["house_self-consump."], name="RE2house_self-consump.", stackgroup='negative',line={'color':'#67ff24'}),
             row=1, col=1, secondary_y=False)
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_loads["self_EV-charging"], name="produced_RE2EV_self-consump.", stackgroup='negative',line={'color':'#24f3ff'}),
+            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_loads["self_EV-charging"], name="RE2EV_self-consump.", stackgroup='negative',line={'color':'#24f3ff'}),
             row=1, col=1, secondary_y=False)
         VPP_opt_fig.add_trace(
             go.Scatter(x=self.elvis_time_serie, y=-self.VPP_loads["RE-grid-export"], name="RE2grid_export", stackgroup='negative'),
             row=1, col=1, secondary_y=False)
         #EV discharged power usage
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_loads["battery-self-consump."], name="produced_EV2house_self-consump.", stackgroup='negative',line={'color':'#fc24ff'}),
+            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_loads["battery-self-consump."], name="EV2house_self-consump.", stackgroup='negative',line={'color':'#fc24ff'}),
             row=1, col=1, secondary_y=False)
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_loads["self_battery-EV-charging"], name="produced_EV2EV_self-consump.", stackgroup='negative',line={'color':'#fff824'}),
+            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_loads["self_battery-EV-charging"], name="EV2EV_self-consump.", stackgroup='negative',line={'color':'#fff824'}),
             row=1, col=1, secondary_y=False)
         VPP_opt_fig.add_trace(
             go.Scatter(x=self.elvis_time_serie, y=-self.VPP_loads["battery-grid-export"], name="EV2grid_export", stackgroup='negative'),
             row=1, col=1, secondary_y=False)
         #Production sources
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_loads["solar_power"], name="solar_power",line={'color':'#95bf00'}, stackgroup='produced'),
+            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_loads["solar_power"], name="PRO_solar_power",line={'color':'#95bf00'}, stackgroup='produced'),
             row=1, col=1, secondary_y=False)
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_loads["wind_power"], name="wind_power",line={'color':'#1ac6ff'}, stackgroup='produced'),
+            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_loads["wind_power"], name="PRO_wind_power",line={'color':'#1ac6ff'}, stackgroup='produced'),
             row=1, col=1, secondary_y=False)
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_loads["RE_power"], name="RE_power",line={'color':'rgb(45, 167, 176)'}),
+            go.Scatter(x=self.elvis_time_serie, y=-self.VPP_loads["RE_power"], name="PRO_RE_power",line={'color':'rgb(45, 167, 176)'}),
             row=1, col=1, secondary_y=False)
         VPP_opt_fig.add_trace(
-            go.Scatter(x=self.elvis_time_serie, y=self.VPP_loads["discharging_ev_power"],line={'color':'#fa1d9c'}, name="ev_discharged_pwr", stackgroup='produced'),
+            go.Scatter(x=self.elvis_time_serie, y=self.VPP_loads["discharging_ev_power"],line={'color':'#fa1d9c'}, name="PRO_ev_discharged_pwr", stackgroup='produced'),
             row=1, col=1, secondary_y=False)
 
 
