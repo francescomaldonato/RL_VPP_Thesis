@@ -715,10 +715,10 @@ class VPPEnv(Env):
             VPP_loads["self_battery-EV-charging"] = VPP_loads["RE-uncovered_EV-charging"] - VPP_loads["grid-import_EV-charging"]
             self.VPP_EV2battery = VPP_loads["self_battery-EV-charging"].sum()/4 #kWh
             #Rates evaluation
-            self.VPP_energy_consumed = self.house_grid_import + self.EVs_grid_import + (self.VPP_house_selfc + self.VPP_RE2battery + self.VPP_EV2battery)
-            self.VPP_autarky_rate = ((self.VPP_house_selfc + self.VPP_RE2battery + self.VPP_EV2battery) / self.VPP_energy_consumed) * 100
-            self.VPP_energy_produced = self.RE_grid_export + self.battery_grid_export + (self.VPP_house_selfc + self.VPP_RE2battery + self.VPP_EV2battery)
-            self.VPP_selfc_rate = ((self.VPP_house_selfc + self.VPP_RE2battery + self.VPP_EV2battery) / self.VPP_energy_produced) * 100
+            self.VPP_energy_consumed = self.house_grid_import + self.EVs_grid_import + (self.VPP_house_selfc + self.VPP_battery_selfc + self.VPP_RE2battery + self.VPP_EV2battery)
+            self.VPP_autarky_rate = ((self.VPP_house_selfc + self.VPP_battery_selfc + self.VPP_RE2battery + self.VPP_EV2battery) / self.VPP_energy_consumed) * 100
+            self.VPP_energy_produced = self.RE_grid_export + self.battery_grid_export + (self.VPP_house_selfc + self.VPP_battery_selfc + self.VPP_RE2battery + self.VPP_EV2battery)
+            self.VPP_selfc_rate = ((self.VPP_house_selfc + self.VPP_battery_selfc + self.VPP_RE2battery + self.VPP_EV2battery) / self.VPP_energy_produced) * 100
 
             #Storing the modified VPP loads Dataframe
             self.VPP_loads = VPP_loads
@@ -1149,8 +1149,8 @@ class VPPEnv(Env):
         Elvis_autarky_labels = ["Grid2house-import", "Grid2EV-import", "RE2house-self","RE2EVs-self"]
         Elvis_autarky_values = [(self.Elvis_overconsume-self.Elvis_Grid2EV_en), self.Elvis_Grid2EV_en, self.Elvis_RE2house_en, self.Elvis_RE2EV_en]
         
-        VPP_selfc_labels = ["RE2grid-export", "EV2grid-export", "RE2house-self", "RE2EVs-self", "EV2EV-transf."]
-        VPP_selfc_values = [self.RE_grid_export, self.battery_grid_export, self.VPP_house_selfc, self.VPP_RE2battery, self.VPP_EV2battery]
+        VPP_selfc_labels = ["RE2grid-export", "EV2grid-export", "RE2house-self", "RE2EVs-self", "EV2house-self", "EV2EV-transf."]
+        VPP_selfc_values = [self.RE_grid_export, self.battery_grid_export, self.VPP_house_selfc, self.VPP_RE2battery, self.VPP_battery_selfc, self.VPP_EV2battery]
         VPP_autarky_labels = ["Grid2house-import", "Grid2EV-import", "RE2house-self", "RE2EVs-self", "EV2house-self", "EV2EV-transf."]
         VPP_autarky_values = [self.house_grid_import, self.EVs_grid_import, self.VPP_house_selfc, self.VPP_RE2battery, self.VPP_battery_selfc, self.VPP_EV2battery]
 
