@@ -1566,13 +1566,17 @@ class VPPEnv(Env):
         """
         x0 = [0]*self.tot_simulation_len
         x1 = self.VPP_data["total_load"].values
+        Elvis_zero_load_n = sum(1 for i in x1 if -0.05 < i < 0.05)
+        time_zero_Elvis= (Elvis_zero_load_n/self.tot_simulation_len)*100
         x2 = self.optimized_VPP_data["total_load"].values
+        VPP_zero_load_n = sum(1 for i in x2 if -0.05 < i < 0.05)
+        time_zero_VPP= (VPP_zero_load_n/self.tot_simulation_len)*100
         
         df =pd.DataFrame(dict(series = np.concatenate((["steady-zero-load"]*len(x0), ["ELVIS-load"]*len(x1), ["VPP-load"]*len(x2))), 
                                 kW  = np.concatenate((x0,x1,x2))
                             ))
 
-        kpi_fig = px.histogram(df, x="kW", color="series", barmode="overlay", marginal = 'violin', log_y=True, color_discrete_map = {"steady-zero-load":'orange', "ELVIS-load":'#636efa', "VPP-load":'rgb(77, 218, 193)'})
+        kpi_fig = px.histogram(df, x="kW", color="series", barmode="overlay", marginal = 'violin', log_y=True, color_discrete_map = {f"(-0.05)<load<(0.05)[kWh]:{VPP_zero_load_n}-steps":'orange', f"{self.EVs_n}EVs-ELVIS-load(zero:{round(time_zero_Elvis,1)}%)":'#636efa', f"{self.EVs_n}EVs-VPP-load(zero:{round(time_zero_VPP,1)}%)":'rgb(77, 218, 193)'})
         kpi_fig.update_layout(title_text='Yearly Load peak occurences histogram',  width=1500,height=700,)
         #kpi_fig.show()
         return kpi_fig
