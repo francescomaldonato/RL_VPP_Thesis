@@ -1579,8 +1579,8 @@ class VPPEnv(Env):
         #f"(-0.05)<load<(0.05)[kWh]:{VPP_zero_load_n}-steps":'orange', f"{self.EVs_n}EVs-ELVIS-load(zero:{round(time_zero_Elvis,1)}%)":'#636efa', f"{self.EVs_n}EVs-VPP-load(zero:{round(time_zero_VPP,1)}%)":'rgb(77, 218, 193)'
         kpi_fig = px.histogram(df, x="kW", color="series", barmode="overlay", marginal = 'violin', log_y=True, color_discrete_map = {"steady-zero-load":'orange', "ELVIS-load":'#636efa', "VPP-load":'rgb(77, 218, 193)'})
         kpi_fig.update_layout(#title_text= f"{self.EVs_n}EVs-yearly-load-distr.:", 
-                                title=dict(text= f"[{self.EVs_n}EVs weekly] Yearly-load-distribution.  Time-steps with load in ±0.1 kW range  -VPP: {VPP_zero_load_n} ({round(time_zero_VPP,1)}%),  -Elvis: {Elvis_zero_load_n} ({round(time_zero_Elvis,1)}%)", 
-                                            x=0.2, y=0.93,
+                                title=dict(text= f"[{self.EVs_n}EVs weekly] Yearly-load-distribution.  Load in ±0.1 kW range  -VPP: {VPP_zero_load_n} steps ({round(time_zero_VPP,1)}%),  -Elvis: {Elvis_zero_load_n} steps ({round(time_zero_Elvis,1)}%)", 
+                                            x=0.01, y=0.95,
                                             #font_family="Open Sherif",
                                             font_size=14,
                                             #font_color="red"
