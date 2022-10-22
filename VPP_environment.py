@@ -1576,7 +1576,16 @@ class VPPEnv(Env):
                                 kW  = np.concatenate((x0,x1,x2))
                             ))
 
-        kpi_fig = px.histogram(df, x="kW", color="series", barmode="overlay", marginal = 'violin', log_y=True, color_discrete_map = {f"(-0.05)<load<(0.05)[kWh]:{VPP_zero_load_n}-steps":'orange', f"{self.EVs_n}EVs-ELVIS-load(zero:{round(time_zero_Elvis,1)}%)":'#636efa', f"{self.EVs_n}EVs-VPP-load(zero:{round(time_zero_VPP,1)}%)":'rgb(77, 218, 193)'})
-        kpi_fig.update_layout(title_text='Yearly Load peak occurences histogram',  width=1500,height=700,)
+        #f"(-0.05)<load<(0.05)[kWh]:{VPP_zero_load_n}-steps":'orange', f"{self.EVs_n}EVs-ELVIS-load(zero:{round(time_zero_Elvis,1)}%)":'#636efa', f"{self.EVs_n}EVs-VPP-load(zero:{round(time_zero_VPP,1)}%)":'rgb(77, 218, 193)'
+        kpi_fig = px.histogram(df, x="kW", color="series", barmode="overlay", marginal = 'violin', log_y=True, color_discrete_map = {"steady-zero-load":'orange', "ELVIS-load":'#636efa', "VPP-load":'rgb(77, 218, 193)'})
+        kpi_fig.update_layout(#title_text= f"{self.EVs_n}EVs-yearly-load-distr.:", 
+                                title=dict(text= f"{self.EVs_n}EVs-yearly-load-distr.  VPP.zero-load time-steps:{VPP_zero_load_n}({round(time_zero_VPP,1)}%),  Elvis.zero-load time-steps:{Elvis_zero_load_n}({round(time_zero_Elvis,1)}%)", 
+                                            x=0.5, y=0.9,
+                                            #font_family="Open Sherif",
+                                            font_size=14,
+                                            #font_color="red"
+                                            ),
+                                width=1500,height=700,
+                                xaxis={'side': 'top'},)
         #kpi_fig.show()
         return kpi_fig
