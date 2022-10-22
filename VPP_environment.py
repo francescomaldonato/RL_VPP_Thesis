@@ -869,9 +869,9 @@ class VPPEnv(Env):
         self.Elvis_overcost = cost_array[cost_array > 0].sum()
         #Elvis self-consumption and autarky eval
         self.Elvis_en_produced = self.Elvis_underconsume + (self.Elvis_RE2house_en + self.Elvis_RE2EV_en)
-        self.Elvis_selfc_rate = (self.Elvis_RE2house_en + self.Elvis_RE2EV_en) / self.Elvis_en_produced
+        self.Elvis_selfc_rate = ((self.Elvis_RE2house_en + self.Elvis_RE2EV_en) / self.Elvis_en_produced)*100
         self.Elvis_en_consumed = self.Elvis_overconsume + (self.Elvis_RE2house_en + self.Elvis_RE2EV_en)
-        self.Elvis_autarky_rate = (self.Elvis_RE2house_en + self.Elvis_RE2EV_en) / self.Elvis_en_consumed
+        self.Elvis_autarky_rate = ((self.Elvis_RE2house_en + self.Elvis_RE2EV_en) / self.Elvis_en_consumed)*100
         #Reset environment printout:
         print("- ELVIS.Simulation (Av.EV_SOC= ", self.EVs_mean_soc, "%):\n",
             "Sum_Energy=kWh ", round(self.sum_Elvis_total_load,2),
@@ -1116,7 +1116,8 @@ class VPPEnv(Env):
         autarky_labels = ["Grid2house-import", "RE2house-self"]
         autarky_values = [self.HRW_overenergy, self.self_consumption]
         # Create subplots: use 'domain' type for Pie subplot
-        fig = make_subplots(subplot_titles=(f'Self-consumption rate: {round(selfc_rate,1)}%', f'Autarky rate: {round(autarky_rate,1)}%'),
+        fig = make_subplots(subplot_titles=(f'Dataset self-consumption rate: {round(selfc_rate,1)}%,  Tot.supplied-en: {round((-self.HRW_underenergy)+self.self_consumption,1)} kWh',
+                                            f'Autarky rate: {round(autarky_rate,1)}%,  Tot.demand-en:{round(self.HRW_overenergy+self.self_consumption,1)}kWh'),
                             rows=1, cols=2, specs=[[{'type':'domain'}, {'type':'domain'}]])
         
         fig.add_trace(go.Pie(labels=selfc_labels, values=selfc_values, name="self-consumption", textinfo='label+value+percent', pull=[0.1, 0]),
@@ -1155,7 +1156,7 @@ class VPPEnv(Env):
         VPP_autarky_values = [self.house_grid_import, self.EVs_grid_import, self.VPP_house_selfc, self.VPP_RE2battery, self.VPP_battery_selfc, self.VPP_EV2battery]
 
         # Create subplots
-        fig = make_subplots(subplot_titles=(f'Elvis self-consump.rate: {round(self.Elvis_selfc_rate,1)}%', f'Elvis autarky rate: {round(self.Elvis_autarky_rate,1)}%',
+        fig = make_subplots(subplot_titles=(f'Elvis-Self-consump.rate:{round(self.Elvis_selfc_rate,1)}%,  Tot.supplied-en:{round(self.Elvis_en_produced,1)} kWh', f'Elvis-Autarky-rate:{round(self.Elvis_autarky_rate,1)}%,  Tot.demand-en:{round(self.Elvis_en_consumed,1)}kWh',
                                             'VPP simulation', 'VPP simulation'),
                             rows=2, cols=2,
                             specs=[[{'type':'domain'}, {'type':'domain'}],
@@ -1179,16 +1180,16 @@ class VPPEnv(Env):
             # Add annotations in the center of the donut pies.
             annotations=[#dict(text='Elvis simulation', x=0.25, y=0.95, font_size=14, showarrow=False),
                          dict(text=f'Self-consumption rate: {round(self.Elvis_selfc_rate,1)}%', x=0.4, y=0.88, font_size=12, showarrow=False),
-                         dict(text=f'Tot.chart supply-en: {round(self.Elvis_en_produced,1)} kWh', x=0.4, y=0.83, font_size=12, showarrow=False),
+                         dict(text=f'Tot.supplied-en: {round(self.Elvis_en_produced,1)} kWh', x=0.4, y=0.83, font_size=12, showarrow=False),
                          #dict(text='Elvis simulation', x=0.65, y=0.95, font_size=14, showarrow=False),
                          dict(text= f'Autarky rate: {round(self.Elvis_autarky_rate,1)}%', x=1, y=0.88, font_size=12, showarrow=False),
-                         dict(text= f'Tot.chart demand-en:{round(self.Elvis_en_consumed,1)}kWh', x=1, y=0.83, font_size=12, showarrow=False),
+                         dict(text= f'Tot.demand-en:{round(self.Elvis_en_consumed,1)}kWh', x=1, y=0.83, font_size=12, showarrow=False),
                          #dict(text='VPP simulation', x=0.05, y=0.35, font_size=14, showarrow=False),
                          dict(text=f'Self-consumption rate: {round(self.VPP_selfc_rate,1)}%', x=0.4, y=0.38, font_size=12, showarrow=False),
-                         dict(text=f'Tot.chart supply-en: {round(self.VPP_energy_produced,1)} kWh', x=0.4, y=0.33, font_size=12, showarrow=False),
+                         dict(text=f'Tot.supplied-en: {round(self.VPP_energy_produced,1)} kWh', x=0.4, y=0.33, font_size=12, showarrow=False),
                          #dict(text='VPP simulation', x=0.65, y=0.35, font_size=14, showarrow=False),
                          dict(text= f'Autarky rate: {round(self.VPP_autarky_rate,1)}%', x=1, y=0.38, font_size=12, showarrow=False),
-                         dict(text= f'Tot.chart demand-en:{round(self.VPP_energy_consumed,1)}kWh', x=1, y=0.33, font_size=12, showarrow=False)],
+                         dict(text= f'Tot.demand-en:{round(self.VPP_energy_consumed,1)}kWh', x=1, y=0.33, font_size=12, showarrow=False)],
 
             width=1550,height=800,
             showlegend = False)
