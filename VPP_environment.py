@@ -1564,13 +1564,14 @@ class VPPEnv(Env):
         during the VPP simulation with controlled charging (Yearly, superimposed)
         """
         x0 = [0]*self.tot_simulation_len
-        x1 = self.optimized_VPP_data["total_load"].values
-        x2 = self.VPP_data["total_load"].values
-        df =pd.DataFrame(dict(series = np.concatenate((["steady-zero-load"]*len(x0), ["VPP-load"]*len(x1),  ["ELVIS-load"]*len(x2))), 
+        x1 = self.VPP_data["total_load"].values
+        x2 = self.optimized_VPP_data["total_load"].values
+        
+        df =pd.DataFrame(dict(series = np.concatenate((["steady-zero-load"]*len(x0), ["ELVIS-load"]*len(x1)), ["VPP-load"]*len(x2)), 
                                 kW  = np.concatenate((x0,x1,x2))
                             ))
 
-        kpi_fig = px.histogram(df, x="kW", color="series", barmode="overlay", marginal = 'violin', log_y=True, color_discrete_map = {"steady-zero-load":'orange', "VPP-load":'rgb(77, 218, 193)', "ELVIS-load":'#636efa'})
+        kpi_fig = px.histogram(df, x="kW", color="series", barmode="overlay", marginal = 'violin', log_y=True, color_discrete_map = {"steady-zero-load":'orange', "ELVIS-load":'#636efa', "VPP-load":'rgb(77, 218, 193)'})
         kpi_fig.update_layout(title_text='Yearly Load peak occurences histogram',  width=1500,height=700,)
         #kpi_fig.show()
         return kpi_fig
