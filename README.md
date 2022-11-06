@@ -1,6 +1,6 @@
 # RL control strategies for EVs fleet VPPs
 ### [Reinforcement Learning control strategies for Electric Vehicles fleet Virtual Power Plants]
-Thesis based on the development of a RL agent that manages a VPP through EVs charging stations in an household environment. Main optimization objectives of the VPP are: Valley filling, peak shaving and zero resulting load over time. Main action performed to reach objectives are: storage of Renewable energy resources and power push in the grid at high demand times. The development of the Virtual Power Plant environment is based on the ELVIS (Electric Vehicles Infrastructure Simulator) open library from DAI-Labor: https://github.com/dailab/elvis
+Thesis based on the development of a RL agent that manages a VPP through EVs charging stations in an household environment. Main optimization objectives of the VPP are: Valley filling, peak shaving and zero resulting load over time (supply/demand load balance). Main action performed to reach objectives are: storage of Renewable energy resources and power push in the grid at high demand times. The development of the Virtual Power Plant environment is based on the ELVIS (Electric Vehicles Infrastructure Simulator) open library from DAI-Labor: https://github.com/dailab/elvis
 The thesis code is currently available at: (https://github.com/francescomaldonato/RL_VPP_Thesis)
 
 ## Outline:
@@ -22,6 +22,7 @@ The simulation configuration parameters set already loaded is shown below. This 
     https://colab.research.google.com/github/francescomaldonato/RL_VPP_Thesis/blob/main/VPP_simulator.ipynb
 - Check the VPP results and interactive plots already loaded in the notebook.
 - If you wish to test again the VPP performances, re-run the whole notebook.
+- Check out and read the developed thesis paper `MALDONATO-RL_control-strategies_for_EVs_fleet_VPP.pdf`.
 
 It will automatically clone in the remote machine the repository: https://github.com/francescomaldonato/RL_VPP_Thesis.git
 
@@ -30,7 +31,7 @@ It will automatically clone in the remote machine the repository: https://github
 RL_VPP_Thesis:
 - `VPP_environment.py` (Python script containing the environment definition and functions)
 - `VPP_simulator.ipynb` (Notebook to test the VPP performances and features with the best trained model, currently RecurrentPPO)
-- `MALDONATO-RL_control-strategies_for_EVs_fleet_VPP.pdf` (Developed thesis paper of the research) [Not available yet]
+- `MALDONATO-RL_control-strategies_for_EVs_fleet_VPP.pdf` (Developed thesis paper of the research)
 
 - Algorithm_simulator_notebooks: (folder with notebooks to test the VPP with different RL algorithms or with random actions)
     - `1-Random_VPP_simulator.ipynb`
