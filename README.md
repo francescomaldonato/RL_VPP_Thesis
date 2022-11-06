@@ -30,7 +30,7 @@ It will automatically clone in the remote machine the repository: https://github
 RL_VPP_Thesis:
 - `VPP_environment.py` (Python script containing the environment definition and functions)
 - `VPP_simulator.ipynb` (Notebook to test the VPP performances and features with the best trained model, currently RecurrentPPO)
-- `RL_control-strategies_for_EVs_fleet_VPP.pdf` (Developed thesis paper of the research) [Not available yet]
+- `MALDONATO-RL_control-strategies_for_EVs_fleet_VPP.pdf` (Developed thesis paper of the research) [Not available yet]
 
 - Algorithm_simulator_notebooks: (folder with notebooks to test the VPP with different RL algorithms or with random actions)
     - `1-Random_VPP_simulator.ipynb`

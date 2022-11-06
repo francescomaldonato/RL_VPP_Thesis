@@ -202,7 +202,7 @@ class VPPEnv(Env):
         self.set_reward_func()
 
         self.VPP_data = VPP_data
-        self.VPP_actions, self.action_truth_list, self.EVs_energy_at_leaving = ([],[],[])
+        self.VPP_actions, self.action_truth_list, self.EVs_energy_at_leaving, self.EVs_energy_at_arrival = ([],[],[],[])
         #self.lstm_states_list = []
         self.av_EV_energy_left, self.std_EV_energy_left, self.sim_total_load, self.sim_av_total_load, self.sim_std_total_load, self.overconsumed_en, self.underconsumed_en, self.sim_total_cost, self.sim_overcost = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         self.cumulative_reward, self.load_t_reward, self.overconsume_reward, self.underconsume_reward, self.overcost_reward, self.EVs_energy_reward, self.AV_EVs_energy_reward = [0, 0, 0, 0, 0, 0, 0]
@@ -803,6 +803,7 @@ class VPPEnv(Env):
         self.simul_charging_events_n = len(self.charging_events)
         #Evaluate av.EV energy left with Elvis
         Elvis_av_EV_energy_left, n_av = [0, 0]
+        self.EVs_energy_at_arrival = []
         for charging_event in self.charging_events:
             n_av += 1
             vehicle_i = charging_event.vehicle_type.to_dict()
@@ -812,6 +813,7 @@ class VPPEnv(Env):
             capacity_i  = battery_i['capacity'] #kWh
             #capacity_i  = 100 #kWh, considering only Tesla Model S
             energy_i = soc_i * capacity_i #kWh
+            self.EVs_energy_at_arrival.append(energy_i)
             charging_time = charging_event.leaving_time - charging_event.arrival_time
             final_energy = energy_i + ((charging_time.total_seconds()/3600) * self.charging_point_max_power)
             if final_energy > capacity_i: final_energy = capacity_i #kWh
@@ -1497,6 +1499,19 @@ class VPPEnv(Env):
         #comparison_fig.show()
         return comparison_fig
 
+    def plot_EVs_arrival_en(self):
+        """
+        Method to plot and visualize the histogram of the EVs energy at arrival.
+        """
+        kpi_fig = px.histogram(x=self.EVs_energy_at_arrival, marginal = 'violin',
+                                opacity=0.8,
+                                color_discrete_sequence=['indianred'] # color of histogram bars
+                                )
+        kpi_fig.update_xaxes(title = 'energy% available (kWh)')
+        kpi_fig.update_layout(title_text="EVs energy at arrival histogram",  width=1500,height=700,)
+        #kpi_fig.show()
+        return kpi_fig
+
     def plot_EVs_kpi(self):
         """
         Method to plot and visualize the histogram of the EVs energy left at departure during the VPP simulation with controlled charging.
@@ -1580,7 +1595,7 @@ class VPPEnv(Env):
         kpi_fig = px.histogram(df, x="kW", color="series", barmode="overlay", marginal = 'violin', log_y=True, color_discrete_map = {"steady-zero-load":'orange', "ELVIS-load":'#636efa', "VPP-load":'rgb(77, 218, 193)'})
         kpi_fig.update_layout(#title_text= f"{self.EVs_n}EVs-yearly-load-distr.:", 
                                 title=dict(text= f"[{self.EVs_n}EVs weekly] Yearly-load-distribution.  Load in ±0.1 kW range  -VPP: {VPP_zero_load_n} steps ({round(time_zero_VPP,1)}%),  -Elvis: {Elvis_zero_load_n} steps ({round(time_zero_Elvis,1)}%)", 
-                                            x=0.01, y=0.95,
+                                            x=0.1, y=0.95,
                                             #font_family="Open Sherif",
                                             font_size=14,
                                             #font_color="red"
