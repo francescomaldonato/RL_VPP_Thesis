@@ -1,0 +1,907 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{none/global//global/global}
+  \entry{McKinsey}{article}{}
+    \name{author}{2}{}{%
+      {{hash=ESXVFS}{%
+         family={Eivind\bibnamedelima Samseth},
+         familyi={E\bibinitperiod\bibinitdelim S\bibinitperiod},
+         suffix={Fabian\bibnamedelima Stockhausen},
+         suffixi={F\bibinitperiod\bibinitdelim S\bibinitperiod},
+         given={Xavier\bibnamedelima Veillard},
+         giveni={X\bibinitperiod\bibinitdelim V\bibinitperiod},
+      }}%
+      {{hash=WA}{%
+         family={Weiss},
+         familyi={W\bibinitperiod},
+         given={Alexander},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \keyw{trends}
+    \strng{namehash}{ESFSXVWA1}
+    \strng{fullhash}{ESFSXVWA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Five trends reshaping European power markets - Utilities, traders, and large power consumers face significant challenges addressing the next normal}}
+    \verb{url}
+    \verb https://www.mckinsey.com/industries/electric-power-and-natural-gas/ou
+    \verb r-insights/five-trends-reshaping-european-power-markets
+    \endverb
+    \field{year}{2021}
+  \endentry
+
+  \entry{ev-statistics}{article}{}
+    \name{author}{1}{}{%
+      {{hash=V}{%
+         family={VIRTA},
+         familyi={V\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{V1}
+    \strng{fullhash}{V1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{The state of EV charging infrastructure in Europe by 2030}
+    \verb{url}
+    \verb https://www.virta.global/blog/ev-charging-infrastructure-development-
+    \verb statistics
+    \endverb
+  \endentry
+
+  \entry{te_recharge-eu}{article}{}
+    \name{author}{1}{}{%
+      {{hash=LMTE}{%
+         family={Lucien\bibnamedelima MATHIEU},
+         familyi={L\bibinitperiod\bibinitdelim M\bibinitperiod},
+         given={Transport &\bibnamedelima Environment},
+         giveni={T\bibinitperiod\bibinitdelim \bibinitperiod\bibinitdelim E\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LMTE1}
+    \strng{fullhash}{LMTE1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{RECHARGE EU: How many charging points will Europe and its member states need in the 2020s?}
+    \verb{url}
+    \verb https://www.transportenvironment.org/wp-content/uploads/2021/07/01%20
+    \verb 2020%20Draft%20TE%20Infrastructure%20Report%20Final.pdf
+    \endverb
+  \endentry
+
+  \entry{bidirectionalEV}{article}{}
+    \name{author}{1}{}{%
+      {{hash=PFEM}{%
+         family={Program},
+         familyi={P\bibinitperiod},
+         given={Federal Energy\bibnamedelima Management},
+         giveni={F\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \keyw{bidirectional,charging}
+    \strng{namehash}{PFEM1}
+    \strng{fullhash}{PFEM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Bidirectional Charging and Electric Vehicles for Mobile Storage}}
+    \verb{url}
+    \verb https://www.energy.gov/eere/femp/bidirectional-charging-and-electric-
+    \verb  vehicles-mobile-storage
+    \endverb
+  \endentry
+
+  \entry{integrated-fleet-EV-frequency-regulator}{inproceedings}{}
+    \name{author}{5}{}{%
+      {{hash=RR}{%
+         family={Rana},
+         familyi={R\bibinitperiod},
+         given={Rubi},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=KK}{%
+         family={Kaur},
+         familyi={K\bibinitperiod},
+         given={Kuljeet},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=SM}{%
+         family={Singh},
+         familyi={S\bibinitperiod},
+         given={Mukesh},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=KN}{%
+         family={Kumar},
+         familyi={K\bibinitperiod},
+         given={Neeraj},
+         giveni={N\bibinitperiod},
+      }}%
+      {{hash=KP}{%
+         family={Kumar},
+         familyi={K\bibinitperiod},
+         given={Praveen},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RRKKSM+1}
+    \strng{fullhash}{RRKKSMKNKP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2015 IEEE International Transportation Electrification Conference (ITEC)}
+    \verb{doi}
+    \verb 10.1109/ITEC-India.2015.7386953
+    \endverb
+    \field{pages}{1\bibrangedash 7}
+    \field{title}{Integrated fleet of electric vehicles as a frequency regulation agent in the grid}
+    \field{year}{2015}
+  \endentry
+
+  \entry{market-oriented-smart-grids}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=AA}{%
+         family={Abdelkader},
+         familyi={A\bibinitperiod},
+         given={Abdelrahman},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=SI}{%
+         family={Sychev},
+         familyi={S\bibinitperiod},
+         given={Ilya},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=BR}{%
+         family={Bonetto},
+         familyi={B\bibinitperiod},
+         given={Riccardo},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=FFHP}{%
+         family={Fitzek},
+         familyi={F\bibinitperiod},
+         given={Frank H.\bibnamedelima P.},
+         giveni={F\bibinitperiod\bibinitdelim H\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AASIBR+1}
+    \strng{fullhash}{AASIBRFFHP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2019 IEEE International Conference on Communications, Control, and Computing Technologies for Smart Grids (SmartGridComm)}
+    \verb{doi}
+    \verb 10.1109/SmartGridComm.2019.8909698
+    \endverb
+    \field{pages}{1\bibrangedash 6}
+    \field{title}{A Market Oriented, Reinforcement Learning Based Approach for Electric Vehicles Integration in Smart Micro Grids}
+    \field{year}{2019}
+  \endentry
+
+  \entry{Q-Learning-Based}{article}{}
+    \name{author}{2}{}{%
+      {{hash=OK}{%
+         family={Ojand},
+         familyi={O\bibinitperiod},
+         given={Kianoosh},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=DH}{%
+         family={Dagdougui},
+         familyi={D\bibinitperiod},
+         given={Hanane},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{OKDH1}
+    \strng{fullhash}{OKDH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1109/TASE.2021.3091334
+    \endverb
+    \field{number}{1}
+    \field{pages}{70\bibrangedash 81}
+    \field{title}{Q-Learning-Based Model Predictive Control for Energy Management in Residential Aggregator}
+    \field{volume}{19}
+    \field{journaltitle}{IEEE Transactions on Automation Science and Engineering}
+    \field{year}{2022}
+  \endentry
+
+  \entry{smart-charging_station}{article}{}
+    \name{author}{4}{}{%
+      {{hash=SM}{%
+         family={Singh},
+         familyi={S\bibinitperiod},
+         given={Mukesh},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=KP}{%
+         family={Kumar},
+         familyi={K\bibinitperiod},
+         given={Praveen},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=KI}{%
+         family={Kar},
+         familyi={K\bibinitperiod},
+         given={Indrani},
+         giveni={I\bibinitperiod},
+      }}%
+      {{hash=KN}{%
+         family={Kumar},
+         familyi={K\bibinitperiod},
+         given={Neeraj},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SMKPKI+1}
+    \strng{fullhash}{SMKPKIKN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2016 IEEE Power and Energy Society General Meeting (PESGM)}
+    \verb{doi}
+    \verb 10.1109/PESGM.2016.7741479
+    \endverb
+    \field{pages}{1\bibrangedash 5}
+    \field{title}{A real-time smart charging station for EVs designed for V2G scenario and its coordination with renewable energy sources}
+    \field{year}{2016}
+  \endentry
+
+  \entry{multi-agent-smart-grids}{article}{}
+    \name{author}{6}{}{%
+      {{hash=RM}{%
+         family={Roesch},
+         familyi={R\bibinitperiod},
+         given={Martin},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=LC}{%
+         family={Linder},
+         familyi={L\bibinitperiod},
+         given={Christian},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=ZR}{%
+         family={Zimmermann},
+         familyi={Z\bibinitperiod},
+         given={Roland},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=RA}{%
+         family={Rudolf},
+         familyi={R\bibinitperiod},
+         given={Andreas},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=HA}{%
+         family={Hohmann},
+         familyi={H\bibinitperiod},
+         given={Andrea},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=RG}{%
+         family={Reinhart},
+         familyi={R\bibinitperiod},
+         given={Gunther},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{RMLCZR+1}
+    \strng{fullhash}{RMLCZRRAHARG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.3390/app10196900
+    \endverb
+    \field{pages}{6900}
+    \field{title}{Smart Grid for Industry Using Multi-Agent Reinforcement Learning}
+    \field{volume}{10}
+    \field{journaltitle}{Applied Sciences}
+    \field{month}{10}
+    \field{year}{2020}
+  \endentry
+
+  \entry{MAS_q-leaning-energy-management}{article}{}
+    \name{author}{3}{}{%
+      {{hash=SE}{%
+         family={Samadi},
+         familyi={S\bibinitperiod},
+         given={Esmat},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=BA}{%
+         family={Badri},
+         familyi={B\bibinitperiod},
+         given={Ali},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=ER}{%
+         family={Ebrahimpour},
+         familyi={E\bibinitperiod},
+         given={Reza},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SEBAER1}
+    \strng{fullhash}{SEBAER1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2021 29th Iranian Conference on Electrical Engineering (ICEE)}
+    \verb{doi}
+    \verb 10.1109/ICEE52715.2021.9544152
+    \endverb
+    \field{pages}{318\bibrangedash 322}
+    \field{title}{Q-Learning-Oriented Distributed Energy Management of Grid-Connected Microgrid}
+    \field{year}{2021}
+  \endentry
+
+  \entry{LSTM_microgrid}{article}{}
+    \name{author}{3}{}{%
+      {{hash=CT}{%
+         family={Cao},
+         familyi={C\bibinitperiod},
+         given={Tongjie},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=SZ}{%
+         family={Shen},
+         familyi={S\bibinitperiod},
+         given={Zhirong},
+         giveni={Z\bibinitperiod},
+      }}%
+      {{hash=ZG}{%
+         family={Zhang},
+         familyi={Z\bibinitperiod},
+         given={Guanglin},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{CTSZZG1}
+    \strng{fullhash}{CTSZZG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{booktitle}{2019 15th International Conference on Mobile Ad-Hoc and Sensor Networks (MSN)}
+    \verb{doi}
+    \verb 10.1109/MSN48538.2019.00017
+    \endverb
+    \field{pages}{13\bibrangedash 18}
+    \field{title}{LSTM-Aided Reinforcement Learning for Energy Management in Microgrid with Energy Storage and EV Charging}
+    \field{year}{2019}
+  \endentry
+
+  \entry{applied-RL}{article}{}
+    \name{author}{1}{}{%
+      {{hash=T}{%
+         family={{Taweh Beysolow II}},
+         familyi={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{T1}
+    \strng{fullhash}{T1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb https://doi.org/10.1007/978-1-4842-5127-0
+    \endverb
+    \field{title}{{Applied Reinforcement Learning with Python - With OpenAI Gym, Tensorflow, and Keras}}
+    \field{journaltitle}{Apress}
+    \field{year}{2019}
+  \endentry
+
+  \entry{markov_wiki}{article}{}
+    \name{author}{1}{}{%
+      {{hash=W}{%
+         family={{Wikipedia}},
+         familyi={W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{W1}
+    \strng{fullhash}{W1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Markov decision process}}
+    \verb{url}
+    \verb https://en.wikipedia.org/wiki/Markov_decision_process
+    \endverb
+  \endentry
+
+  \entry{openai_gym}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{title}{OpenAI Gym}
+    \verb{url}
+    \verb https://www.gymlibrary.dev/
+    \endverb
+  \endentry
+
+  \entry{stable-baselines3}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{title}{{Stable Baselines3}}
+    \verb{url}
+    \verb https://stable-baselines3.readthedocs.io/en/master/index.html
+    \endverb
+  \endentry
+
+  \entry{pytorch}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{title}{{PyTorch}}
+    \verb{url}
+    \verb https://pytorch.org/
+    \endverb
+  \endentry
+
+  \entry{stable-baseline3-contrib}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{title}{{Stable Baselines3 Contrib}}
+    \verb{url}
+    \verb https://stable-baselines3.readthedocs.io/en/master/guide/sb3_contrib.
+    \verb html
+    \endverb
+  \endentry
+
+  \entry{wandb}{misc}{}
+    \keyw{machine, learning}
+    \field{labeltitlesource}{title}
+    \field{title}{{Weights & Biases}}
+    \verb{url}
+    \verb https://wandb.ai/site
+    \endverb
+  \endentry
+
+  \entry{colab}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{title}{Google Colaboratory}
+    \verb{url}
+    \verb https://colab.research.google.com/
+    \endverb
+  \endentry
+
+  \entry{policy_gradient}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=KS}{%
+         family={Kapoor},
+         familyi={K\bibinitperiod},
+         given={Sanyam},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KS1}
+    \strng{fullhash}{KS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Policy Gradients in a Nutshell}
+    \verb{url}
+    \verb https://towardsdatascience.com/policy-gradients-in-a-nutshell-8b72f97
+    \verb 43c5d
+    \endverb
+    \field{year}{2018}
+  \endentry
+
+  \entry{actor_critic_A2C}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=YC}{%
+         family={Yoon},
+         familyi={Y\bibinitperiod},
+         given={Chris},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{YC1}
+    \strng{fullhash}{YC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Understanding Actor Critic Methods and A2C}
+    \verb{url}
+    \verb https://towardsdatascience.com/understanding-actor-critic-methods-931
+    \verb b97b6df3f
+    \endverb
+    \field{year}{2019}
+  \endentry
+
+  \entry{PPO_TRPO}{article}{}
+    \name{author}{1}{}{%
+      {{hash=KD}{%
+         family={Karunakaran},
+         familyi={K\bibinitperiod},
+         given={Dhanoop},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KD1}
+    \strng{fullhash}{KD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Proximal Policy Optimization(PPO)- A policy-based Reinforcement Learning algorithm}
+    \verb{url}
+    \verb https://medium.com/intro-to-artificial-intelligence/proximal-policy-o
+    \verb ptimization-ppo-a-policy-based-reinforcement-learning-algorithm-3cf12
+    \verb 6a7562d
+    \endverb
+    \field{year}{2020}
+  \endentry
+
+  \entry{PPO_paper}{article}{}
+    \name{author}{1}{}{%
+      {{hash=JSPDAROKFW}{%
+         family={John\bibnamedelima Schulman},
+         familyi={J\bibinitperiod\bibinitdelim S\bibinitperiod},
+         suffix={Filip\bibnamedelima Wolski},
+         suffixi={F\bibinitperiod\bibinitdelim W\bibinitperiod},
+         given={Prafulla Dhariwal Alec Radford Oleg\bibnamedelima Klimov},
+         giveni={P\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim R\bibinitperiod\bibinitdelim O\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{JSFWPDAROK1}
+    \strng{fullhash}{JSFWPDAROK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Proximal Policy Optimization Algorithms}
+    \verb{url}
+    \verb https://arxiv.org/pdf/1707.06347v2.pdf
+    \endverb
+    \field{journaltitle}{OpenAI}
+    \field{year}{2017}
+  \endentry
+
+  \entry{action-masking}{article}{}
+    \name{author}{1}{}{%
+      {{hash=S}{%
+         family={{Shengyi Huang and Santiago Ontanon}},
+         familyi={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{S1}
+    \strng{fullhash}{S1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{A Closer Look at Invalid Action Masking in Policy Gradient Algorithms}
+    \verb{url}
+    \verb https://arxiv.org/pdf/2006.14171.pdf
+    \endverb
+    \field{journaltitle}{College of Computing & Informatics, Drexel University Philadelphia, PA 19104}
+  \endentry
+
+  \entry{line_trust_region}{article}{}
+    \name{author}{1}{}{%
+      {{hash=KD}{%
+         family={Karunakaran},
+         familyi={K\bibinitperiod},
+         given={Dhanoop},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KD1}
+    \strng{fullhash}{KD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Line search and Trust region methods: two optimisation strategies}
+    \verb{url}
+    \verb https://medium.com/intro-to-artificial-intelligence/line-search-and-t
+    \verb rust-region-optimisation-strategies-638a4a7490ca
+    \endverb
+    \field{year}{2020}
+  \endentry
+
+  \entry{trust_region_policy}{article}{}
+    \name{author}{1}{}{%
+      {{hash=JSPMMIJPASL}{%
+         family={John\bibnamedelima Schulman},
+         familyi={J\bibinitperiod\bibinitdelim S\bibinitperiod},
+         suffix={Sergey\bibnamedelima Levine},
+         suffixi={S\bibinitperiod\bibinitdelim L\bibinitperiod},
+         given={Philipp Moritz Michael I. Jordan Pieter\bibnamedelima Abbeel},
+         giveni={P\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim I\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{JSSLPMMIJPA1}
+    \strng{fullhash}{JSSLPMMIJPA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb https://doi.org/10.48550/arXiv.1502.05477
+    \endverb
+    \field{title}{Trust Region Policy Optimization}
+  \endentry
+
+  \entry{LSTM_RNN}{article}{}
+    \name{author}{1}{}{%
+      {{hash=JRTJ}{%
+         family={J.},
+         familyi={J\bibinitperiod},
+         given={Ryan T.\bibnamedelima J.},
+         giveni={R\bibinitperiod\bibinitdelim T\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{JRTJ1}
+    \strng{fullhash}{JRTJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{LSTMs Explained: A Complete, Technically Accurate, Conceptual Guide with Keras}
+    \verb{url}
+    \verb https://medium.com/analytics-vidhya/lstms-explained-a-complete-techni
+    \verb cally-accurate-conceptual-guide-with-keras-2a650327e8f2
+    \endverb
+    \field{year}{2020}
+  \endentry
+
+  \entry{LSTM_PPO_implementation}{article}{}
+    \name{author}{1}{}{%
+      {{hash=HRFJRAKAWWSD}{%
+         family={Huang},
+         familyi={H\bibinitperiod},
+         suffix={Shengyi;\bibnamedelima Dossa},
+         suffixi={S\bibinitperiod\bibinitdelim D\bibinitperiod},
+         given={Rousslan Fernand Julien; Raffin Antonin; Kanervisto Anssi; Wang\bibnamedelima Weixun},
+         giveni={R\bibinitperiod\bibinitdelim F\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim R\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim K\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim W\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HSDRFJRAKAWW1}
+    \strng{fullhash}{HSDRFJRAKAWW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{The 37 Implementation Details of Proximal Policy Optimization - 5 LSTM implementation details}
+    \verb{url}
+    \verb https://iclr-blog-track.github.io/2022/03/25/ppo-implementation-detai
+    \verb ls/
+    \endverb
+    \field{year}{2020}
+  \endentry
+
+  \entry{elvis}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{title}{Electric Vehicle Charging Infrastructure Simulator (ELVIS)}
+    \verb{url}
+    \verb https://github.com/dailab/elvis
+    \endverb
+  \endentry
+
+  \entry{dai-labor}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{title}{Distributed Artificial Intelligence Laboratory}
+    \verb{url}
+    \verb https://dai-labor.de/en/home/
+    \endverb
+  \endentry
+
+  \entry{renew_ninja}{misc}{}
+    \keyw{renewables, PV, wind}
+    \field{labeltitlesource}{title}
+    \field{title}{{Renewables Ninja}}
+    \verb{url}
+    \verb https://www.renewables.ninja/
+    \endverb
+  \endentry
+
+  \entry{pecanstreet}{misc}{}
+    \list{publisher}{1}{%
+      {Pecanstreet}%
+    }
+    \keyw{electricity, market, price}
+    \field{labeltitlesource}{title}
+    \field{title}{{Day-ahead Prices}}
+    \verb{url}
+    \verb https://www.pecanstreet.org/dataport/
+    \endverb
+    \field{journaltitle}{Insider Intelligence}
+  \endentry
+
+  \entry{entsoe}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{title}{{Day-ahead Prices}}
+    \verb{url}
+    \verb https://transparency.entsoe.eu/transmission-domain/r2/dayAheadPrices/
+    \verb show?name=&defaultValue=false&viewType=GRAPH&areaType=BZN&atch=false&
+    \verb dateTime.dateTime=18.05.2022+00:00|CET|DAY&biddingZone.values=CTY|10Y
+    \verb 1001A1001A83F!BZN|10Y1001A1001A82H&resolution.values=PT15M&resolution
+    \verb .values=PT30M&resolution.values=PT60M&dateTime.timezone=CET_CEST&date
+    \verb Time.timezone_input=CET+(UTC+1)+/+CEST+(UTC+2)"
+    \endverb
+  \endentry
+
+  \entry{haben2021review}{article}{}
+    \name{author}{5}{}{%
+      {{hash=HS}{%
+         family={Haben},
+         familyi={H\bibinitperiod},
+         given={Stephen},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=AS}{%
+         family={Arora},
+         familyi={A\bibinitperiod},
+         given={Siddharth},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=GG}{%
+         family={Giasemidis},
+         familyi={G\bibinitperiod},
+         given={Georgios},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=VM}{%
+         family={Voss},
+         familyi={V\bibinitperiod},
+         given={Marcus},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=VD}{%
+         family={{Vukadinović Greetham}},
+         familyi={V\bibinitperiod},
+         given={Danica},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HSASGG+1}
+    \strng{fullhash}{HSASGGVMVD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb https://doi.org/10.1016/j.apenergy.2021.117798
+    \endverb
+    \field{issn}{0306-2619}
+    \field{pages}{117798}
+    \field{title}{Review of low voltage load forecasting: Methods, applications, and recommendations}
+    \verb{url}
+    \verb https://www.sciencedirect.com/science/article/pii/S0306261921011326
+    \endverb
+    \field{volume}{304}
+    \field{journaltitle}{Applied Energy}
+    \field{year}{2021}
+  \endentry
+
+  \entry{blem}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=KM}{%
+         family={Kostmann},
+         familyi={K\bibinitperiod},
+         given={Michael},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \keyw{electricity, households}
+    \strng{namehash}{KM1}
+    \strng{fullhash}{KM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{BLEMdataGlimpse}
+    \verb{url}
+    \verb https://github.com/QuantLet/BLEM/tree/master/BLEMdataGlimpse
+    \endverb
+    \field{year}{2018}
+  \endentry
+
+  \entry{self-consump_autarky}{article}{}
+    \name{author}{2}{}{%
+      {{hash=HM}{%
+         family={Hall},
+         familyi={H\bibinitperiod},
+         given={Monika},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=GA}{%
+         family={Geissler},
+         familyi={G\bibinitperiod},
+         given={Achim},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HMGA1}
+    \strng{fullhash}{HMGA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \verb{doi}
+    \verb 10.1016/j.egypro.2017.07.422
+    \endverb
+    \field{pages}{379\bibrangedash 384}
+    \field{title}{Different balancing methods for Net Zero Energy Buildings - Impact of time steps, grid interaction and weighting factors}
+    \field{volume}{122}
+    \field{journaltitle}{Energy Procedia}
+    \field{month}{09}
+    \field{year}{2017}
+  \endentry
+
+  \entry{hyperband}{article}{}
+    \name{author}{1}{}{%
+      {{hash=L}{%
+         family={{Lisha Li, Kevin Jamieson, Giulia DeSalvo, Afshin Rostamizadeh, Ameet Talwalkar}},
+         familyi={L\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{L1}
+    \strng{fullhash}{L1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization}}
+    \verb{url}
+    \verb https://arxiv.org/pdf/1603.06560.pdf
+    \endverb
+    \field{journaltitle}{{Journal of Machine Learning Research}}
+    \field{year}{2018}
+  \endentry
+
+  \entry{gae_lambda}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{title}{GAE — Generalized Advantage Estimation}
+    \verb{url}
+    \verb https://xlnwel.github.io/blog/reinforcement%20learning/GAE/
+    \endverb
+  \endentry
+
+  \entry{grad_clipping}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{title}{Understanding Gradient Clipping (and How It Can Fix Exploding Gradients Problem) - Gradient clipping-by-norm}
+    \verb{url}
+    \verb https://neptune.ai/blog/understanding-gradient-clipping-and-how-it-ca
+    \verb n-fix-exploding-gradients-problem
+    \endverb
+  \endentry
+
+  \entry{ppo_parameters}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{title}{PPO Hyperparameters and Ranges}
+    \verb{url}
+    \verb https://medium.com/aureliantactics/ppo-hyperparameters-and-ranges-6fc
+    \verb 2d29bccbe
+    \endverb
+  \endentry
+
+  \entry{rmsprop}{article}{}
+    \name{author}{1}{}{%
+      {{hash=V}{%
+         family={{Vitaly Bushaev}},
+         familyi={V\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{V2}
+    \strng{fullhash}{V2}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Understanding RMSprop — faster neural network learning}}
+    \verb{url}
+    \verb https://towardsdatascience.com/understanding-rmsprop-faster-neural-ne
+    \verb twork-learning-62e116fcf29a
+    \endverb
+  \endentry
+
+  \entry{custom_policy}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{title}{{Custom Policy Network}}
+    \verb{url}
+    \verb https://stable-baselines3.readthedocs.io/en/master/guide/custom_polic
+    \verb y.html
+    \endverb
+  \endentry
+
+  \entry{ppo_training_charts}{article}{}
+    \name{author}{1}{}{%
+      {{hash=A}{%
+         family={{AurelianTactics}},
+         familyi={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{A1}
+    \strng{fullhash}{A1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Understanding PPO Plots in TensorBoard}}
+    \verb{url}
+    \verb https://medium.com/aureliantactics/understanding-ppo-plots-in-tensorb
+    \verb oard-cbc3199b9ba2
+    \endverb
+  \endentry
+\enddatalist
+\endinput
