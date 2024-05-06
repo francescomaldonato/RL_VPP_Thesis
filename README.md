@@ -1,6 +1,7 @@
 # RL control strategies for EVs fleet VPPs
 ### [Reinforcement Learning control strategies for Electric Vehicles fleet Virtual Power Plants]
-Thesis based on the development of a RL agent that manages a VPP through EVs charging stations in an household environment. Main optimization objectives of the VPP are: Valley filling, peak shaving and zero resulting load over time (supply/demand load balance). Main action performed to reach objectives are: storage of Renewable energy resources and power push in the grid at high demand times. The development of the Virtual Power Plant environment is based on the ELVIS (Electric Vehicles Infrastructure Simulator) open library from DAI-Labor: https://github.com/dailab/elvis . 
+Thesis based on the development of a RL agent that manages a VPP through EVs charging stations in an household environment. Main optimization objectives of the VPP are: Valley filling, peak shaving and zero resulting load over time (supply/demand load balance). Main action performed to reach objectives are: storage of Renewable energy resources and power push in the grid at high demand times. The development of the Virtual Power Plant environment is based on the ELVIS (Electric Vehicles Infrastructure Simulator) open library from DAI-Labor: https://github.com/dailab/elvis .
+Thesis published paper available at: https://arxiv.org/abs/2405.01889
 The thesis code, files and data is currently available at: (https://github.com/francescomaldonato/RL_VPP_Thesis)
 
 ## Outline:
